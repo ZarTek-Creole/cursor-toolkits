@@ -1,0 +1,46 @@
+{
+  "name": "cursor-toolkits",
+  "version": "1.0.0",
+  "description": "Production-ready templates for Cursor IDE with optimized rules and MCP integration",
+  "type": "module",
+  "bin": {
+    "cursor-init": "./bin/cursor-init-wrapper.js"
+  },
+  "scripts": {
+    "install": "chmod +x bin/cursor-init",
+    "test": "make test",
+    "validate": "make validate",
+    "validate:rules": "lib/validators/validate-cursorrules.sh",
+    "validate:mcp": "lib/validators/validate-mcp-config.sh",
+    "check:tokens": "python3 lib/validators/check-token-limits.py"
+  },
+  "keywords": [
+    "cursor",
+    "cursor-ide",
+    "templates",
+    "boilerplate",
+    "fastapi",
+    "symfony",
+    "nextjs",
+    "mcp",
+    "cursor-rules"
+  ],
+  "author": "cursor-toolkits contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/cursor-toolkits.git"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "best/",
+    "lib/",
+    "templates/",
+    "docs/",
+    "tests/",
+    "Makefile",
+    "README.md"
+  ]
+}

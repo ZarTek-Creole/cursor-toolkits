@@ -1,0 +1,59 @@
+# Symfony Development Rules v1&D.0
+
+## Project Context
+- **Stack**: Symfony 7 + Doctrine ORM 3 + PHP 8.3
+- **Architecture**: Service-oriented, dependency injection
+- **PHP**: >=8.3 (strict types)
+
+## Code Style
+
+### 1. Type Declarations (Required)
+- Use strict types: `declare(strict_types=1);`
+- Type hint all parameters and return values
+- Use PHP 8.3+ typed properties
+
+### 2. Dependency Injection Pattern
+```php
+class Service
+{
+    public function __construct(
+        private EntityManagerInterface $em,
+        private LoggerInterface $logger
+    ) {}
+}
+```
+
+### 3. Project Structure
+```
+src/
+├── Controller/     # API endpoints
+├── Entity/         # Doctrine entities
+├── Repository/     # Custom repositories
+├── Service/        # Business logic
+└── DTO/           # Data Transfer Objects
+```
+
+### 4. RESTful API Conventions
+- Use proper HTTP methods
+- Return JSON responses
+- Use status codes: 200, 201, 204, 400, 401, 404, 500
+
+## Entity Best Practices
+
+- Use typed properties
+- Use attributes for Doctrine mapping
+- Always use repositories for queries
+- Use DTOs for data transfer
+
+## Restrictions
+
+- ❌ No echo/print_r for debugging (use logger)
+- ❌ No SQL queries in controllers
+- ❌ No direct entity mutations (use services)
+- ❌ No hardcoded strings (use constants)
+
+## Testing
+
+- Write functional tests for controllers
+- Unit test services
+- Minimum 70% code coverage

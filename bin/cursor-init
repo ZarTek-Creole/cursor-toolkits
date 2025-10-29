@@ -1,0 +1,221 @@
+#!/bin/bash
+
+# cursor-init - Intelligent project initializer for Cursor IDE
+# Creates production-ready projects with optimized Cursor rules
+
+set -e
+
+VERSION="1.0.0"
+TOOLKITS_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+TEMPLATES_DIR="$TOOLKITS_DIR/templates"
+
+# Colors
+CYAN='\033[0;36m'
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+NC='\033[0m'
+
+# Usage function
+usage() {
+    cat << EOF
+${CYAN}cursor-init v${VERSION}${NC}
+
+Usage: cursor-init [OPTIONS]
+
+Options:
+    --stack <template>     Stack to use (python-fastapi|symfony-api|nextjs-typescript)
+    --name <name>          Project name
+    --features <list>      Comma-separated features (docker,ci,tests)
+    --mcp <servers>        MCP servers to install (postgres,github)
+    --from-existing <dir>  Analyze existing project and generate rules
+    --output <dir>         Output directory (default: current directory)
+    --help                 Show this help message
+    --version              Show version
+
+Examples:
+    cursor-init --stack python-fastapi --name my-api
+    cursor-init --stack symfony-api --name my-api --mcp github
+    cursor-init --from-existing 가지../project --generate-rules
+EOF
+}
+
+# Detect stack in existing project
+detect_stack() {
+    local dir="$1"
+    
+    # Check for Python
+    if [ -f "$dir/requirements.txt" ] || [ -f "$dir/pyproject.toml" ]; then
+        echo "python"
+        return
+    fi
+    
+    # Check for PHP
+    if [ -f "$dir/composer.json" ]; then
+        echo "php"
+        return
+    fi
+    
+    # Check for Node.js
+    if [ -f "$dir/package.json" ]; then
+        echo "nodejs"
+        return
+    fi
+    
+    echo "unknown"
+}
+
+# Interactive mode
+interactive_mode() {
+    echo -e "${CYAN}Cursor Toolkits - Interactive Mode${NC}"
+    echo ""
+    
+    # Get project name
+    read -p "Project name: " PROJECT_NAME
+    if [ -z "$PROJECT_NAME" ]; then
+        echo -e "${RED}Error: Project name is required${NC}"
+        exit 1
+    fi
+    
+    # Get stack
+    echo ""
+    echo "Available stacks:"
+    echo "  1) python-fastapi - Python FastAPI async backend"
+    echo "  2) symfony-api - PHP Symfony 7 API"
+    echo "  3) nextjs-typescript - Next.js 14 with TypeScript"
+    echo ""
+    read -p "Select stack (1-3): " STACK_CHOICE
+    
+    case $STACK_CHOICE in
+        1) STACK="python-fastapi" ;;
+        2) STACK="symfony-api" ;;
+        3) STACK="nextjs-typescript" ;;
+        *) echo -e "${RED}Invalid choice${NC}"; exit 1 ;;
+    esac
+    
+    # Get features
+    echo ""
+    read -p "Features (docker,ci,tests) [all]: " FEATURES
+    FEATURES=${FEATURES:-all}
+    
+    echo ""
+    read -p "Output directory [./${PROJECT_NAME}]: " OUTPUT
+    OUTPUT=${OUTPUT:-./${PROJECT_NAME}}
+    
+    echo ""
+    echo -e "${CYAN}Creating project '$PROJECT_NAME' with stack '$STACK'...${NC}"
+    
+    create_project "$STACK" "$PROJECT_NAME" "$OUTPUT" "$FEATURES"
+}
+
+# Create project from template
+create_project() {
+    local stack="$1"
+    local name="$2"
+    local output="${3:-./$name}"
+    local features="$4"
+    
+    local template_dir="$TEMPLATES_DIR/$stack"
+    
+    if [ ! -d "$template_dir" ]; then
+        echo -e "${RED}Error: Template '$stack' not found${NC}"
+        exit 1
+    fi
+    
+    # Create output directory
+    mkdir -p "$output"
+    
+    # Copy template files
+    echo -e "${CYAN}Copying template files...${NC}"
+    cp -r "$template_dir"/.* "$template_dir"/* "$output/" 2>/dev/null || true
+    
+    # Process files (replace placeholders)
+    echo -e "${CYAN}Processing files...${NC}"
+    find "$output" -type f \( -name "*.py" -o -name "*.md" -o -name "*.json" -o -name "*.toml" \) -exec sed -i "s/__PROJECT_NAME__/$name/g" {} \;
+    
+    # Handle features
+    if [[ "$features" == *"docker"* ]] || [[ "$features" == "all" ]]; then
+        if [ ! -f "$output/docker-compose.yml" ]; then
+            echo -e "${YELLOW}Warning: Docker not supported in this template${NC}"
+        fi
+    fi
+    
+    echo ""
+    echo -e "${GREEN}✓ Project created successfully!${NC}"
+    echo ""
+    echo "Next steps:"
+    echo "  1. cd $output"
+    echo "  2. Review configuration files"
+    echo "  3. Install dependencies"
+    echo "  4. Start coding with Cursor IDE"
+    echo ""
+}
+
+# Parse command line arguments
+STACK=""
+PROJECT_NAME=""
+FEATURES=""
+OUTPUT=""
+FROM_EXISTING=""
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --stack)
+            STACK="$2"
+            shift 2
+            ;;
+        --name)
+            PROJECT_NAME="$2"
+            shift 2
+            ;;
+        --features)
+            FEATURES="$2"
+            shift 2
+            ;;
+        --mcp)
+            MCP_SERVERS="$2"
+            shift 2
+            ;;
+        --from-existing)
+            FROM_EXISTING="$2"
+            shift 2
+            ;;
+        --output)
+            OUTPUT="$2"
+            shift 2
+            ;;
+        --help)
+            usage
+            exit 0
+            ;;
+        --version)
+            echo "cursor-init v${VERSION}"
+            exit 0
+            ;;
+        *)
+            echo -e "${RED}Unknown option: $1${NC}"
+            usage
+            exit 1
+            ;;
+    esac
+done
+
+# Main logic
+if [ -n "$FROM_EXISTING" ]; then
+    # Analyze existing project
+    echo -e "${CYAN}Analyzing existing project...${NC}"
+    detected=$(detect_stack "$FROM_EXISTING")
+    echo "Detected stack: $detected"
+    echo -e "${YELLOW}Analysis feature coming soon${NC}"
+elif [ -z "$STACK" ]; then
+    # Interactive mode
+    interactive_mode
+else
+    # Direct mode
+    if [ -z "$PROJECT_NAME" ]; then
+        echo -e "${RED}Error: --name is required in non-interactive mode${NC}"
+        exit 1
+    fi
+    
+    create_project "$STACK" "$PROJECT_NAME" "$OUTPUT" "$FEATURES"
+fi

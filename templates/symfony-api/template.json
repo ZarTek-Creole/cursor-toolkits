@@ -1,0 +1,19 @@
+{
+  "name": "symfony-api",
+  "version": "1.0.0",
+  "description": "Production-ready Symfony 7 API with Doctrine ORM 3 and async support",
+  "tags": ["#toc-safe", "#production-ready", "#symfony7"],
+  "cursor_version": ">=1.7.0",
+  "token_budget": {
+    "cursorrules": 500,
+    "mcp_config": 200,
+    "total_context": 700
+  },
+  "dependencies": {
+    "php": ">=8.3",
+    "composer": ">=2.5"
+  },
+  "mcp_servers": ["github", "postgres"],
+  "features": ["doctrine3", "messenger", "security", "serializer", "validator"],
+  "last_tested": "2025-01-28"
+}

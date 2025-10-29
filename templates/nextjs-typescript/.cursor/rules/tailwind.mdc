@@ -1,0 +1,23 @@
+# TailwindCSS Rules v1.0.0
+
+## Best Practices
+
+### 1. Class Organization
+```tsx
+<div className="flex items-center justify-center rounded-lg bg-blue-500 text-white">
+```
+
+### 2. Responsive Design
+```tsx
+<div className="flex flex-col md:flex-row lg:grid lg:grid-cols-3">
+```
+
+### 3. Custom Colors
+- Define custom colors in tailwind.config.js
+- Use semantic names: primary, secondary, accent
+
+## Restrictions
+
+- ❌ No inline styles
+- ❌ No custom CSS unless necessary
+- ❌ No arbitrary values (`w-[123px]`)

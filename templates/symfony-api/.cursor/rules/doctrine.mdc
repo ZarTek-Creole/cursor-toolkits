@@ -1,0 +1,41 @@
+# Doctrine ORM 3 Rules v1.0.0
+
+## Entity Configuration
+
+### 1. Entity Definition
+```php
+#[ORM\Entity]
+#[ORM\Table(name: 'table_name')]
+class Entity
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+}
+```
+
+### 2. Relationships
+- Use attributes for associations
+- Always specify cascade options
+- Use lazy loading by default
+
+### 3. Repository Pattern
+```php
+class EntityRepository extends ServiceEntityRepository
+{
+    public function findCustom(): array
+    {
+        return $this->createQueryBuilder('e')
+            ->select('e')
+            ->getQuery()
+            ->getResult();
+    }
+}
+```
+
+## Restrictions
+
+- ❌ No direct SQL queries
+- ❌ No N+1 query problems
+- ❌ No public properties

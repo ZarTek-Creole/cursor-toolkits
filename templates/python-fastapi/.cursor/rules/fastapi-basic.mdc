@@ -1,0 +1,66 @@
+# FastAPI Development Rules v1.0.0
+
+## Project Context
+- **Stack**: FastAPI + SQLAlchemy 2.0 + Pydantic 2 + PostgreSQL
+- **Architecture**: Async-first, dependency injection pattern
+- **Python**: >=3.11
+
+## Code Style
+
+### 1. Async/Await (Priority)
+- Use `async def` for all route handlers and database operations
+- Prefer SQLAlchemy async session: `AsyncSession`
+- Always use `await` for async calls
+
+### 2. Type Hints (Required)
+- Use type hints on all functions: `def function() -> ResponseType:`
+- Use Pydantic models for request/response validation
+- Prefer `Optional[X]` over `X | None` for compatibility
+
+### 3. Dependency Injection Pattern
+```python
+from fastapi import Depends
+
+def get_db() -> AsyncSession:
+    ...
+
+@router.get("/items")
+async def get_items(db: AsyncSession = Depends(get_db)):
+    ...
+```
+
+### 4. Project Structure
+```
+src/app/
+├── api/v1/      # API routes
+├── core/        # Configuration
+├── models/      # SQLAlchemy models
+├── schemas/     # Pydantic schemas
+└── services/    # Business logic
+```
+
+## RESTful API Conventions
+
+- Use proper HTTP methods: GET, POST, PUT, DELETE
+- Return 201 for creation, 204 for deletion
+- Use status codes appropriately (400, 401, 404, 500)
+
+## Database Operations
+
+- Always use transactions: `async with db.begin():`
+- Use Pydantic for data validation before DB operations
+- Never use raw SQL unless necessary
+
+## Restrictions
+
+- ❌ No synchronous database operations
+- ❌ No direct SQL queries (use ORM)
+- ❌ No hardcoded secrets (use env variables)
+- ❌ No blocking I/O operations
+
+## Testing
+
+- Write tests before implementing features (TDD)
+- Use pytest with async support
+- Mock external services and databases
+- Minimum 80% code coverage

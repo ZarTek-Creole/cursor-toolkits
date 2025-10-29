@@ -1,0 +1,42 @@
+# Docker & Deployment Rules v1.0.0
+
+## Docker Best Practices
+
+### 1. Multi-stage Builds
+```dockerfile
+FROM python:3.11-slim as builder
+# Install dependencies
+
+FROM python:3.11-slim
+# Copy from builder
+```
+
+### 2. Layer Optimization
+- Copy dependencies first, then code
+- Use .dockerignore
+- Minimize layers
+
+### 3. Docker Compose
+```yaml
+services:
+  api:
+    build: .
+    environment:
+      - DATABASE_URL
+  postgres:
+    image: postgres:16
+  redis:
+    image: redis:7
+```
+
+## Environment Variables
+
+- Use `.env.example` for documentation
+- Never commit `.env` files
+- Use `pydantic-settings` for validation
+
+## Restrictions
+
+- ❌ No secrets in Dockerfiles
+- ❌ No hardcoded ports
+- ❌ No root user in containers

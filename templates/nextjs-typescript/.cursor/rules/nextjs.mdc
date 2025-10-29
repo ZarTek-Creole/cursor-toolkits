@@ -1,0 +1,52 @@
+# Next.js 14 Development Rules v1.0.0
+
+## Project Context
+- **Stack**: Next.js 14 + TypeScript + TailwindCSS
+- **Architecture**: App Router with Server Components
+- **Node.js**: >=18.0.0
+
+## Code Style
+
+### 1. App Router Structure
+```
+app/
+├── page.tsx           # Route page
+├── layout.tsx         # Layout wrapper
+└── (group)/           # Route groups
+```
+
+### 2. Server Components (Default)
+- Use Server Components by default
+- Mark with 'use client' only when necessary
+- Keep server components for data fetching
+
+### 3. TypeScript Strict Mode
+- Enable strict mode in tsconfig.json
+- Type all props and function parameters
+- Use interfaces for component props
+
+### 4. Styling with TailwindCSS
+```tsx
+<div className="flex items-center justify-center">
+  <Component />
+</div>
+```
+
+## File Naming
+
+- Use kebab-case for files: `user-profile.tsx`
+- Use PascalCase for components: `UserProfile`
+- Export default for pages: `export default function Page()`
+
+## Restrictions
+
+- ❌ No 'use client' unless required
+- ❌ No console.log in production
+- ❌ No any types
+- ❌ No hardcoded strings (use constants)
+
+## Testing
+
+- Write unit tests for components
+- Use Vitest or Jest
+- Minimum 70% coverage

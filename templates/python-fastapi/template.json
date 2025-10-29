@@ -1,0 +1,20 @@
+{
+  "name": "python-fastapi-async",
+  "version": "1.0.0",
+  "description": "Production-ready FastAPI template with SQLAlchemy 2.0, Pydantic 2, and async support",
+  "tags": ["#toc-safe", "#production-ready", "#async"],
+  "cursor_version": ">=1.7.0",
+  "token_budget": {
+    "cursorrules": 450,
+    "mcp_config": 200,
+    "total_context": 650
+  },
+  "dependencies": {
+    "python": ">=3.11",
+    "poetry": ">=1.7.0",
+    "docker": ">=20.10"
+  },
+  "mcp_servers": ["postgres", "github"],
+  "features": ["async", "sqlalchemy2", "pydantic2", "pytest", "docker", "redis"],
+  "last_tested": "2025-01-28"
+}

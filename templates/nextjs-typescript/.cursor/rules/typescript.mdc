@@ -1,0 +1,37 @@
+# TypeScript Rules v1.0.0
+
+## Strict Configuration
+
+```json
+{
+  "strict": true,
+  "noImplicitAny": true,
+  "strictNullChecks": true
+}
+```
+
+## Best Practices
+
+### 1. Type Definitions
+- Use interfaces for object shapes
+- Use types for unions/intersections
+- Prefer readonly for immutability
+
+### 2. Component Props
+```tsx
+interface ButtonProps {
+  label: string;
+  onClick: () => void;
+  disabled?: boolean;
+}
+
+export default function Button({ label, onClick, disabled }: ButtonProps) {
+  return <button onClick={onClick} disabled={disabled}>{label}</button>;
+}
+```
+
+## Restrictions
+
+- ❌ No `any` type
+- ❌ No implicit any
+- ❌ No untyped function parameters

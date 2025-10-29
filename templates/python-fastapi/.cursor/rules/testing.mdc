@@ -1,0 +1,42 @@
+# Testing Rules for FastAPI v1.0.0
+
+## Test Structure
+```
+tests/
+├── test_main.py           # API endpoints
+├── test_models.py         # Database models
+└── conftest.py            # Shared fixtures
+```
+
+## Test Conventions
+
+### 1. Fixtures (conftest.py)
+```python
+@pytest.fixture
+async def client():
+    from httpx import AsyncClient
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        yield ac
+```
+
+### 2. Async Tests
+- Use `pytest.mark.asyncio` for async tests
+- Mock databases with test fixtures
+- Use fake data generators (Faker)
+
+### 3. Coverage Requirements
+- Minimum 80% code coverage
+- Cover all error cases
+- Test edge cases
+
+## Running Tests
+
+```bash
+pytest --cov=src --cov-report=html
+```
+
+## Restrictions
+
+- ❌ No real database in tests
+- ❌ No external API calls (use mocks)
+- ❌ No random data (use fixtures)
