@@ -1,0 +1,165 @@
+#!/bin/bash
+
+# Generate Cursor rules for existing project
+# Analyzes project structure and creates optimized rules
+
+set -e
+
+VERSION="1.0.0"
+TOOLKITS_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+
+CYAN='\033[0;36m'
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+NC='\033[0m'
+
+usage() {
+    cat << EOF
+${CYAN}generate-rules v${VERSION}${NC}
+
+Generate optimized Cursor rules for an existing project.
+
+Usage: generate-rules [OPTIONS] <project-directory>
+
+Options:
+    --output <dir>    Output directory for rules (default: <project>/.cursor/rules)
+    --force           Overwrite existing rules
+    --help            Show this help message
+
+Examples:
+    generate-rules ./my-project
+    generate-rules ./my-project --output ./custom-rules
+EOF
+}
+
+if [ "$1" = "--help" ] || [ -z "$1" ]; then
+    usage
+    exit 0
+fi
+
+PROJECT_DIR="$1"
+OUTPUT_DIR=""
+FORCE=false
+
+shift
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --output)
+            OUTPUT_DIR="$2"
+            shift 2
+            ;;
+        --force)
+            FORCE=true
+            shift
+            ;;
+        *)
+            echo -e "${RED}Unknown option: $1${NC}"
+            usage
+            exit 1
+            ;;
+    esac
+done
+
+if [ ! -d "$PROJECT_DIR" ]; then
+    echo -e "${RED}Error: Directory '$PROJECT_DIR' does not exist${NC}"
+    exit 1
+fi
+
+if [ -z "$OUTPUT_DIR" ]; then
+    OUTPUT_DIR="$PROJECT_DIR/.cursor/rules"
+fi
+
+# Check if rules already exist
+if [ -d "$OUTPUT_DIR" ] && [ "$(ls -A "$OUTPUT_DIR" 2>/dev/null)" ] && [ "$FORCE" = false ]; then
+    echo -e "${YELLOW}Warning: Rules directory already exists at $OUTPUT_DIR${NC}"
+    read -p "Overwrite? (y/N): " confirm
+    if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
+        echo "Aborted."
+        exit 1
+    fi
+fi
+
+echo -e "${CYAN}Analyzing project: $PROJECT_DIR${NC}\n"
+
+# Detect stack (simplified version)
+DETECTED_STACK="unknown"
+
+if [ -f "$PROJECT_DIR/requirements.txt" ] || [ -f "$PROJECT_DIR/pyproject.toml" ]; then
+    if grep -q "fastapi" "$PROJECT_DIR/requirements.txt" 2>/dev/null || \
+       grep -q "fastapi" "$PROJECT_DIR/pyproject.toml" 2>/dev/null; then
+        DETECTED_STACK="python-fastapi"
+    elif grep -q "django" "$PROJECT_DIR/requirements.txt" 2>/dev/null || \
+         grep -q "django" "$PROJECT_DIR/pyproject.toml" 2>/dev/null; then
+        DETECTED_STACK="python-django"
+    else
+        DETECTED_STACK="python"
+    fi
+elif [ -f "$PROJECT_DIR/composer.json" ]; then
+    if grep -q "symfony" "$PROJECT_DIR/composer.json" 2>/dev/null; then
+        DETECTED_STACK="symfony-api"
+    else
+        DETECTED_STACK="php-api"
+    fi
+elif [ -f "$PROJECT_DIR/package.json" ]; then
+    if grep -q '"next"' "$PROJECT_DIR/package.json" 2>/dev/null; then
+        DETECTED_STACK="nextjs-typescript"
+    elif grep -q '"@nestjs/core"' "$PROJECT_DIR/package.json" 2>/dev/null; then
+        DETECTED_STACK="nestjs"
+    elif grep -q '"express"' "$PROJECT_DIR/package.json" 2>/dev/null; then
+        DETECTED_STACK="express-typescript"
+    elif grep -q '"vue"' "$PROJECT_DIR/package.json" 2>/dev/null; then
+        DETECTED_STACK="vue3"
+    elif grep -q '"react"' "$PROJECT_DIR/package.json" 2>/dev/null; then
+        DETECTED_STACK="react-vite"
+    else
+        DETECTED_STACK="nodejs"
+    fi
+fi
+
+echo -e "  ${GREEN}Detected stack:${NC} $DETECTED_STACK"
+
+# Create output directory
+mkdir -p "$OUTPUT_DIR"
+
+# Copy rules from template if available
+TEMPLATE_RULES="$TOOLKITS_DIR/templates/$DETECTED_STACK/.cursor/rules"
+
+if [ -d "$TEMPLATE_RULES" ]; then
+    echo -e "  ${CYAN}Copying rules from template...${NC}"
+    cp -r "$TEMPLATE_RULES"/* "$OUTPUT_DIR/" 2>/dev/null || true
+    echo -e "  ${GREEN}✓ Rules copied${NC}"
+else
+    echo -e "  ${YELLOW}⚠ No template rules found, generating generic rules...${NC}"
+    # Generate generic rules
+    cat > "$OUTPUT_DIR/generic.mdc" << EOF
+# Development Rules for $DETECTED_STACK
+
+## Project Context
+- **Stack**: $DETECTED_STACK
+- **Auto-generated**: $(date)
+
+## Guidelines
+
+- Follow best practices for $DETECTED_STACK
+- Write clean, maintainable code
+- Add type hints/annotations where applicable
+- Write tests for new features
+
+## Restrictions
+
+- ❌ No hardcoded secrets
+- ❌ No console.log in production
+- ❌ Follow project conventions
+EOF
+fi
+
+echo ""
+echo -e "${GREEN}✓ Rules generated successfully!${NC}"
+echo -e "  ${BOLD}Location:${NC} $OUTPUT_DIR"
+echo ""
+echo -e "${CYAN}Next steps:${NC}"
+echo "  1. Review the generated rules"
+echo "  2. Customize as needed for your project"
+echo "  3. Restart Cursor IDE to load new rules"
+echo ""

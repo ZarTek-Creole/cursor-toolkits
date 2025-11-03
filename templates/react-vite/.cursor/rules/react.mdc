@@ -1,0 +1,86 @@
+# React 18 + Vite Development Rules v1.0.0
+
+## Project Context
+- **Stack**: React 18 + Vite + TypeScript + TailwindCSS
+- **Architecture**: Component-based, functional components with hooks
+- **Node.js**: >=18.0.0
+
+## Code Style
+
+### 1. Functional Components (Required)
+- Use functional components only (no class components)
+- Use hooks for state and side effects
+- Prefer named exports for components
+
+```tsx
+import { useState, useEffect } from 'react'
+
+export function Component() {
+  const [state, setState] = useState<Type>(initialValue)
+  
+  useEffect(() => {
+    // Side effects
+  }, [dependencies])
+  
+  return <div>...</div>
+}
+```
+
+### 2. TypeScript Strict Mode
+- Enable strict mode in tsconfig.json
+- Type all props with interfaces
+- Use generics for reusable components
+- Avoid `any` type
+
+```tsx
+interface Props {
+  title: string
+  count?: number
+}
+
+export function Component({ title, count = 0 }: Props) {
+  return <div>{title}: {count}</div>
+}
+```
+
+### 3. Hooks Best Practices
+- Custom hooks for reusable logic
+- Extract complex logic into custom hooks
+- Follow rules of hooks (no conditional hooks)
+
+### 4. Component Structure
+```
+src/
+├── components/     # Reusable components
+├── hooks/          # Custom hooks
+├── utils/          # Utility functions
+├── types/          # TypeScript types
+└── App.tsx         # Main component
+```
+
+## Styling with TailwindCSS
+
+- Use Tailwind utility classes
+- Extract complex styles to components
+- Use `@apply` for repeated patterns
+
+## Performance
+
+- Use `React.memo` for expensive components
+- Use `useMemo` and `useCallback` appropriately
+- Lazy load routes with `React.lazy`
+
+## Restrictions
+
+- ❌ No class components
+- ❌ No `any` types
+- ❌ No console.log in production
+- ❌ No prop drilling (use Context API)
+- ❌ No direct DOM manipulation
+
+## Testing
+
+- Write unit tests for components
+- Use Vitest and React Testing Library
+- Test user interactions, not implementation
+- Minimum 80% coverage

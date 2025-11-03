@@ -1,0 +1,79 @@
+# NestJS Development Rules v1.0.0
+
+## Project Context
+- **Stack**: NestJS + TypeScript + PostgreSQL + TypeORM
+- **Architecture**: Modular, dependency injection, decorator-based
+- **Node.js**: >=18.0.0
+
+## Code Style
+
+### 1. Module Structure
+```
+src/
+├── modules/       # Feature modules
+│   └── users/
+│       ├── users.controller.ts
+│       ├── users.service.ts
+│       ├── users.module.ts
+│       └── users.entity.ts
+├── common/        # Shared modules
+└── main.ts         # Application entry
+```
+
+### 2. Dependency Injection
+- Use constructor injection
+- Create services for business logic
+- Use modules for organization
+
+```typescript
+@Injectable()
+export class UsersService {
+  constructor(
+    @InjectRepository(User)
+    private usersRepository: Repository<User>
+  ) {}
+}
+```
+
+### 3. Decorators
+- Use decorators for routes, validation, guards
+- Create custom decorators for reusable logic
+- Use DTOs for data transfer
+
+```typescript
+@Controller('users')
+export class UsersController {
+  @Get()
+  @UseGuards(AuthGuard)
+  async findAll(@Query() query: FindUsersDto) {
+    return this.usersService.findAll(query)
+  }
+}
+```
+
+### 4. TypeScript Strict Mode
+- Enable strict mode
+- Type all parameters and returns
+- Use interfaces for DTOs
+- Avoid `any` type
+
+## Database with TypeORM
+
+- Use entities for database models
+- Use repositories for data access
+- Use migrations for schema changes
+- Use transactions for complex operations
+
+## Testing
+
+- Write unit tests for services
+- Write e2e tests for controllers
+- Use Jest with NestJS testing utilities
+- Minimum 80% coverage
+
+## Restrictions
+
+- ❌ No `any` types
+- ❌ No direct database queries (use repositories)
+- ❌ No business logic in controllers
+- ❌ No hardcoded secrets

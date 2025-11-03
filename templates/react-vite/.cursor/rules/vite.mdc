@@ -1,0 +1,50 @@
+# Vite Configuration Rules v1.0.0
+
+## Project Context
+- **Build Tool**: Vite 5+
+- **Fast HMR**: Hot Module Replacement
+- **TypeScript**: Full support
+
+## Configuration
+
+### 1. Vite Config
+- Use `defineConfig` for type safety
+- Configure plugins in order
+- Set up path aliases for cleaner imports
+
+```ts
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import path from 'path'
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src')
+    }
+  }
+})
+```
+
+### 2. Environment Variables
+- Use `.env` files for configuration
+- Prefix with `VITE_` for client-side variables
+- Never commit `.env` files
+
+### 3. Build Optimization
+- Enable minification in production
+- Configure chunk splitting
+- Use dynamic imports for code splitting
+
+## Development
+
+- Use Vite's fast HMR
+- Leverage Vite's native ES modules
+- Use Vite plugins for additional features
+
+## Restrictions
+
+- ❌ Don't use CommonJS require()
+- ❌ Don't modify node_modules
+- ❌ Don't commit .vite cache

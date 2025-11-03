@@ -1,0 +1,80 @@
+# Vue 3 Development Rules v1.0.0
+
+## Project Context
+- **Stack**: Vue 3 + Vite + TypeScript + TailwindCSS
+- **Architecture**: Composition API, Single File Components
+- **Node.js**: >=18.0.0
+
+## Code Style
+
+### 1. Composition API (Required)
+- Use Composition API with `<script setup>`
+- Use reactive/ref for state
+- Use computed for derived state
+- Extract logic to composables
+
+```vue
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+
+const count = ref(0)
+const doubled = computed(() => count.value * 2)
+
+function increment() {
+  count.value++
+}
+</script>
+```
+
+### 2. TypeScript with Vue
+- Use `<script setup lang="ts">`
+- Type props with interfaces
+- Use generics for reusable components
+- Avoid `any` type
+
+```vue
+<script setup lang="ts">
+interface Props {
+  title: string
+  count?: number
+}
+
+const props = defineProps<Props>()
+</script>
+```
+
+### 3. Component Structure
+```
+src/
+├── components/    # Reusable components
+├── composables/    # Composition functions
+├── views/         # Page components
+├── router/        # Vue Router config
+└── stores/         # Pinia stores
+```
+
+### 4. Styling with TailwindCSS
+- Use Tailwind utility classes
+- Extract complex styles to components
+- Use scoped styles when needed
+
+## Performance
+
+- Use `v-memo` for expensive lists
+- Use `v-once` for static content
+- Lazy load routes
+- Use `<Suspense>` for async components
+
+## Restrictions
+
+- ❌ No Options API (use Composition API)
+- ❌ No `any` types
+- ❌ No direct DOM manipulation
+- ❌ No console.log in production
+
+## Testing
+
+- Write unit tests for components
+- Use Vitest and Vue Test Utils
+- Test component behavior, not implementation
+- Minimum 80% coverage
