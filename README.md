@@ -11,6 +11,8 @@
 **cursor-toolkits** est un écosystème complet de templates optimisés pour maximiser votre productivité avec Cursor IDE. Chaque template inclut :
 
 - ✅ **Règles optimisées token-safe** (`.cursor/rules/*.mdc` < 500 lignes)
+- ✅ **Prompts prédéfinis** (`.cursor/prompts.json`) par type de projet
+- ✅ **Commandes personnalisées** (`.cursor/commands.json`) pour chaque stack
 - ✅ **Configuration MCP** prête à l'emploi
 - ✅ **Code boilerplate fonctionnel** et production-ready
 - ✅ **Tests automatisés** avec 90%+ de couverture
@@ -95,6 +97,38 @@ generate-rules ./my-existing-project
 # Analyser et suggérer des améliorations
 cursor-init --from-existing ./project --analyze
 ```
+
+### 📝 Prompts Prédéfinis
+
+Chaque template inclut des prompts optimisés dans `.cursor/prompts.json` :
+
+```bash
+# Utiliser un prompt dans Cursor
+@create_endpoint Crée un endpoint pour gérer les utilisateurs
+@create_component Crée un composant UserCard
+```
+
+**Prompts disponibles par template** :
+- **FastAPI** : `create_endpoint`, `create_model`, `create_service`, `add_authentication`, etc.
+- **Next.js** : `create_page`, `create_component`, `create_api_route`, `optimize_seo`, etc.
+- **React/Vue** : `create_component`, `create_hook`, `create_context`, etc.
+- **Express/NestJS** : `create_route`, `create_middleware`, `add_prisma_model`, etc.
+- **Symfony** : `create_controller`, `create_entity`, `create_service`, etc.
+
+👉 [Documentation complète des prompts](docs/PROMPTS_AND_COMMANDS.md)
+
+### ⚡ Commandes Personnalisées
+
+Chaque template inclut des commandes dans `.cursor/commands.json` :
+
+- **FastAPI** : `run-tests`, `start-dev`, `create-migration`, etc.
+- **Next.js** : `dev`, `build`, `test`, `type-check`, etc.
+- **Express** : `dev`, `prisma-generate`, `prisma-studio`, etc.
+- **Symfony** : `server-start`, `make-controller`, `migrate`, etc.
+
+Utilisez `Cmd/Ctrl + Shift + P` puis tapez le nom de la commande.
+
+👉 [Documentation complète des commandes](docs/PROMPTS_AND_COMMANDS.md)
 
 ### 🔌 Intégration MCP
 

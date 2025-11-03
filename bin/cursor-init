@@ -356,6 +356,12 @@ create_project() {
     find "$output" -type f \( -name "*.py" -o -name "*.md" -o -name "*.json" -o -name "*.toml" -o -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" -o -name "*.php" -o -name "*.vue" \) \
         -exec sed -i "s/__PROJECT_NAME__/$name/g" {} \; 2>/dev/null || true
     
+    # Generate prompts and commands
+    echo -e "${CYAN}📝 Generating Cursor prompts and commands...${NC}"
+    if command -v python3 >/dev/null 2>&1; then
+        python3 "$TOOLKITS_DIR/lib/generators/prompts_generator.py" "$stack" "$output" 2>/dev/null || true
+    fi
+    
     # Setup MCP servers if requested
     if [ -n "$mcp_servers" ] && [ "$mcp_servers" != "none" ]; then
         echo -e "${CYAN}🔌 Configuring MCP servers...${NC}"

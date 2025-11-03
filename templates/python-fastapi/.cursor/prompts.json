@@ -1,0 +1,39 @@
+{
+  "prompts": [
+    {
+      "name": "create_endpoint",
+      "prompt": "Crée un nouvel endpoint FastAPI dans src/app/api/v1/endpoints/ avec les fonctionnalités suivantes :\n- Route RESTful appropriée (GET/POST/PUT/DELETE)\n- Validation avec Pydantic schemas\n- Gestion d'erreurs avec HTTPException\n- Type hints complets\n- Docstring\n- Tests unitaires correspondants",
+      "category": "development"
+    },
+    {
+      "name": "create_model",
+      "prompt": "Crée un nouveau modèle SQLAlchemy async dans src/app/models/ avec :\n- Colonnes typées\n- Relations si nécessaire\n- Méthodes utilitaires\n- Créer aussi le schema Pydantic correspondant dans src/app/schemas/",
+      "category": "development"
+    },
+    {
+      "name": "create_service",
+      "prompt": "Crée un nouveau service dans src/app/services/ pour la logique métier avec :\n- Méthodes async\n- Type hints\n- Gestion d'erreurs\n- Tests unitaires avec mocks",
+      "category": "development"
+    },
+    {
+      "name": "add_middleware",
+      "prompt": "Ajoute un middleware FastAPI pour [FONCTIONNALITÉ] avec :\n- Gestion async\n- Headers appropriés\n- Logging\n- Tests",
+      "category": "development"
+    },
+    {
+      "name": "create_migration",
+      "prompt": "Crée une migration Alembic pour [DESCRIPTION] avec :\n- Modifications de schéma\n- Données de seed si nécessaire\n- Rollback approprié",
+      "category": "development"
+    },
+    {
+      "name": "optimize_query",
+      "prompt": "Optimise cette requête SQLAlchemy pour réduire les N+1 queries :\n[CODE]\nUtilise selectinload ou joinedload quand approprié",
+      "category": "development"
+    },
+    {
+      "name": "add_authentication",
+      "prompt": "Ajoute l'authentification JWT à cet endpoint avec :\n- Token generation\n- Token validation\n- Refresh token\n- Protection des routes avec Depends",
+      "category": "development"
+    }
+  ]
+}

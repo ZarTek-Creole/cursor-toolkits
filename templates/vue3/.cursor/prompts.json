@@ -1,0 +1,19 @@
+{
+  "prompts": [
+    {
+      "name": "create_component",
+      "prompt": "Crée un composant Vue 3 dans components/ avec :\n- Composition API avec <script setup>\n- TypeScript strict\n- Props typées\n- Styles TailwindCSS\n- Tests avec Vitest",
+      "category": "development"
+    },
+    {
+      "name": "create_composable",
+      "prompt": "Crée un composable dans composables/ pour [FONCTIONNALITÉ] avec :\n- TypeScript types\n- Reactive state\n- Tests\n- Documentation",
+      "category": "development"
+    },
+    {
+      "name": "create_store",
+      "prompt": "Crée un store Pinia pour [DOMAINE] avec :\n- State typé\n- Actions\n- Getters\n- Tests",
+      "category": "development"
+    }
+  ]
+}

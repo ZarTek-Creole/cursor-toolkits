@@ -111,6 +111,69 @@ cursor-init --stack vue3 --name my-app
 - TypeScript
 - TailwindCSS
 
+## 📝 Prompts Prédéfinis
+
+Chaque template inclut des prompts optimisés dans `.cursor/prompts.json`. Ces prompts vous permettent de générer rapidement du code suivant les best practices.
+
+### Utilisation
+
+Dans Cursor IDE, utilisez les prompts avec `@` :
+
+```
+@create_endpoint Crée un endpoint pour gérer les produits
+@create_component Crée un composant UserCard
+```
+
+### Prompts par Template
+
+#### Python FastAPI
+- `create_endpoint` - Créer un endpoint RESTful
+- `create_model` - Créer un modèle SQLAlchemy
+- `create_service` - Créer un service
+- `add_authentication` - Ajouter l'authentification JWT
+- `optimize_query` - Optimiser une requête SQLAlchemy
+
+#### Next.js TypeScript
+- `create_page` - Créer une page Next.js
+- `create_component` - Créer un composant React
+- `create_api_route` - Créer une route API
+- `optimize_seo` - Optimiser le SEO
+
+#### React/Vue
+- `create_component` - Créer un composant
+- `create_hook` / `create_composable` - Créer un hook/composable
+- `create_context` / `create_store` - Gestion d'état
+
+👉 [Documentation complète](PROMPTS_AND_COMMANDS.md#prompts-prédéfinis)
+
+## ⚡ Commandes Personnalisées
+
+Chaque template inclut des commandes dans `.cursor/commands.json`. Accédez-y via `Cmd/Ctrl + Shift + P`.
+
+### Utilisation
+
+1. Ouvrez la palette de commandes (`Cmd/Ctrl + Shift + P`)
+2. Tapez le nom de la commande
+3. La commande s'exécute dans le terminal
+
+### Commandes par Template
+
+#### Python FastAPI
+- `run-tests` - Exécuter les tests avec coverage
+- `start-dev` - Démarrer le serveur de développement
+- `create-migration` - Créer une migration Alembic
+
+#### Next.js
+- `dev` - Démarrer le serveur de développement
+- `build` - Builder pour la production
+- `type-check` - Vérifier les types TypeScript
+
+#### Express/Prisma
+- `prisma-generate` - Générer Prisma Client
+- `prisma-studio` - Ouvrir Prisma Studio
+
+👉 [Documentation complète](PROMPTS_AND_COMMANDS.md#commandes-personnalisées)
+
 ## 🔧 Fonctionnalités Avancées
 
 ### Générer des règles pour un projet existant
@@ -227,6 +290,7 @@ php bin/phpunit --coverage-text
 
 - [Installation](INSTALLATION.md)
 - [Templates](TEMPLATES.md)
+- [Prompts et Commandes](PROMPTS_AND_COMMANDS.md)
 - [MCP Servers](MCP_SERVERS.md)
 - [Token Optimization](TOKEN_OPTIMIZATION.md)
 - [Contributing](CONTRIBUTING.md)

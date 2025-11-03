@@ -1,0 +1,24 @@
+{
+  "prompts": [
+    {
+      "name": "create_module",
+      "prompt": "Crée un module NestJS complet pour [FEATURE] avec :\n- Module dans src/modules/[feature]/\n- Controller avec routes\n- Service avec logique métier\n- Entity avec TypeORM\n- DTOs pour validation\n- Tests",
+      "category": "development"
+    },
+    {
+      "name": "create_guard",
+      "prompt": "Crée un Guard NestJS pour [FONCTIONNALITÉ] avec :\n- CanActivate implementation\n- Gestion d'erreurs\n- Tests",
+      "category": "development"
+    },
+    {
+      "name": "create_interceptor",
+      "prompt": "Crée un Interceptor NestJS pour [FONCTIONNALITÉ] avec :\n- Transformation de données\n- Logging\n- Tests",
+      "category": "development"
+    },
+    {
+      "name": "add_entity",
+      "prompt": "Ajoute une Entity TypeORM dans src/modules/[feature]/entities/ avec :\n- Colonnes typées\n- Relations\n- Indexes\n- Migration",
+      "category": "development"
+    }
+  ]
+}

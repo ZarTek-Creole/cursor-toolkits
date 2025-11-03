@@ -1,0 +1,24 @@
+{
+  "prompts": [
+    {
+      "name": "create_controller",
+      "prompt": "Crée un Controller Symfony dans src/Controller/ pour [RESOURCE] avec :\n- Routes API RESTful\n- Actions CRUD complètes\n- Serialization groups\n- Validation\n- Tests PHPUnit",
+      "category": "development"
+    },
+    {
+      "name": "create_entity",
+      "prompt": "Crée une Entity Doctrine dans src/Entity/ avec :\n- Propriétés typées\n- Relations\n- Repository personnalisé si nécessaire\n- Migration",
+      "category": "development"
+    },
+    {
+      "name": "create_service",
+      "prompt": "Crée un Service Symfony dans src/Service/ pour [FONCTIONNALITÉ] avec :\n- Injection de dépendances\n- Gestion d'erreurs\n- Tests unitaires",
+      "category": "development"
+    },
+    {
+      "name": "create_form",
+      "prompt": "Crée un FormType Symfony pour [ENTITÉ] avec :\n- Champs typés\n- Validation\n- Options appropriées",
+      "category": "development"
+    }
+  ]
+}

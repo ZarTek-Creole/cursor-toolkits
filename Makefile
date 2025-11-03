@@ -25,6 +25,7 @@ test: ## Run all tests
 	@bash tests/test-cli.sh || exit 1
 	@bash tests/test-templates.sh || exit 1
 	@bash tests/test-validators.sh || exit 1
+	@bash tests/test_prompts_commands.sh || exit 1
 	@echo "$(GREEN)✓ All tests passed$(NC)"
 
 test:unit: ## Run unit tests only

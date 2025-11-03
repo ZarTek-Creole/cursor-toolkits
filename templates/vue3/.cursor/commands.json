@@ -1,0 +1,28 @@
+{
+  "commands": [
+    {
+      "name": "dev",
+      "description": "Start Vite development server",
+      "command": "npm run dev",
+      "type": "shell"
+    },
+    {
+      "name": "build",
+      "description": "Build for production",
+      "command": "npm run build",
+      "type": "shell"
+    },
+    {
+      "name": "test",
+      "description": "Run tests with Vitest",
+      "command": "npm test",
+      "type": "shell"
+    },
+    {
+      "name": "lint",
+      "description": "Lint code",
+      "command": "npm run lint",
+      "type": "shell"
+    }
+  ]
+}

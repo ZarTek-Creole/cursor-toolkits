@@ -1,0 +1,271 @@
+{
+  "python-fastapi": {
+    "commands": [
+      {
+        "name": "run-tests",
+        "description": "Run all tests with coverage",
+        "command": "pytest --cov=src --cov-report=term --cov-report=html",
+        "type": "shell"
+      },
+      {
+        "name": "start-dev",
+        "description": "Start FastAPI development server",
+        "command": "uvicorn src.app.main:app --reload",
+        "type": "shell"
+      },
+      {
+        "name": "format-code",
+        "description": "Format code with ruff",
+        "command": "ruff format src",
+        "type": "shell"
+      },
+      {
+        "name": "lint-code",
+        "description": "Lint code with ruff",
+        "command": "ruff check src",
+        "type": "shell"
+      },
+      {
+        "name": "create-migration",
+        "description": "Create Alembic migration",
+        "command": "alembic revision --autogenerate -m",
+        "type": "shell",
+        "prompt": "Enter migration message:"
+      },
+      {
+        "name": "run-migration",
+        "description": "Run database migrations",
+        "command": "alembic upgrade head",
+        "type": "shell"
+      }
+    ]
+  },
+  "nextjs-typescript": {
+    "commands": [
+      {
+        "name": "dev",
+        "description": "Start Next.js development server",
+        "command": "npm run dev",
+        "type": "shell"
+      },
+      {
+        "name": "build",
+        "description": "Build Next.js for production",
+        "command": "npm run build",
+        "type": "shell"
+      },
+      {
+        "name": "test",
+        "description": "Run tests with coverage",
+        "command": "npm test -- --coverage",
+        "type": "shell"
+      },
+      {
+        "name": "lint",
+        "description": "Lint code with ESLint",
+        "command": "npm run lint",
+        "type": "shell"
+      },
+      {
+        "name": "type-check",
+        "description": "Run TypeScript type checking",
+        "command": "tsc --noEmit",
+        "type": "shell"
+      }
+    ]
+  },
+  "react-vite": {
+    "commands": [
+      {
+        "name": "dev",
+        "description": "Start Vite development server",
+        "command": "npm run dev",
+        "type": "shell"
+      },
+      {
+        "name": "build",
+        "description": "Build for production",
+        "command": "npm run build",
+        "type": "shell"
+      },
+      {
+        "name": "test",
+        "description": "Run tests with Vitest",
+        "command": "npm test",
+        "type": "shell"
+      },
+      {
+        "name": "test-ui",
+        "description": "Open Vitest UI",
+        "command": "npm run test:ui",
+        "type": "shell"
+      },
+      {
+        "name": "lint",
+        "description": "Lint code",
+        "command": "npm run lint",
+        "type": "shell"
+      }
+    ]
+  },
+  "express-typescript": {
+    "commands": [
+      {
+        "name": "dev",
+        "description": "Start Express development server",
+        "command": "npm run dev",
+        "type": "shell"
+      },
+      {
+        "name": "build",
+        "description": "Build TypeScript",
+        "command": "npm run build",
+        "type": "shell"
+      },
+      {
+        "name": "test",
+        "description": "Run tests with Jest",
+        "command": "npm test",
+        "type": "shell"
+      },
+      {
+        "name": "prisma-generate",
+        "description": "Generate Prisma Client",
+        "command": "npm run prisma:generate",
+        "type": "shell"
+      },
+      {
+        "name": "prisma-migrate",
+        "description": "Run Prisma migrations",
+        "command": "npm run prisma:migrate",
+        "type": "shell"
+      },
+      {
+        "name": "prisma-studio",
+        "description": "Open Prisma Studio",
+        "command": "npm run prisma:studio",
+        "type": "shell"
+      }
+    ]
+  },
+  "nestjs": {
+    "commands": [
+      {
+        "name": "dev",
+        "description": "Start NestJS development server",
+        "command": "npm run start:dev",
+        "type": "shell"
+      },
+      {
+        "name": "build",
+        "description": "Build NestJS application",
+        "command": "npm run build",
+        "type": "shell"
+      },
+      "test",
+      {
+        "name": "test",
+        "description": "Run tests",
+        "command": "npm test",
+        "type": "shell"
+      },
+      {
+        "name": "test-e2e",
+        "description": "Run e2e tests",
+        "command": "npm run test:e2e",
+        "type": "shell"
+      },
+      {
+        "name": "generate-module",
+        "description": "Generate NestJS module",
+        "command": "nest generate module",
+        "type": "shell",
+        "prompt": "Enter module name:"
+      },
+      {
+        "name": "generate-controller",
+        "description": "Generate NestJS controller",
+        "command": "nest generate controller",
+        "type": "shell",
+        "prompt": "Enter controller name:"
+      },
+      {
+        "name": "generate-service",
+        "description": "Generate NestJS service",
+        "command": "nest generate service",
+        "type": "shell",
+        "prompt": "Enter service name:"
+      }
+    ]
+  },
+  "symfony-api": {
+    "commands": [
+      {
+        "name": "server-start",
+        "description": "Start Symfony server",
+        "command": "symfony server:start",
+        "type": "shell"
+      },
+      {
+        "name": "test",
+        "description": "Run PHPUnit tests",
+        "command": "php bin/phpunit",
+        "type": "shell"
+      },
+      {
+        "name": "make-controller",
+        "description": "Generate Symfony controller",
+        "command": "php bin/console make:controller",
+        "type": "shell",
+        "prompt": "Enter controller name:"
+      },
+      {
+        "name": "make-entity",
+        "description": "Generate Doctrine entity",
+        "command": "php bin/console make:entity",
+        "type": "shell",
+        "prompt": "Enter entity name:"
+      },
+      {
+        "name": "make-migration",
+        "description": "Generate Doctrine migration",
+        "command": "php bin/console make:migration",
+        "type": "shell"
+      },
+      {
+        "name": "migrate",
+        "description": "Run Doctrine migrations",
+        "command": "php bin/console doctrine:migrations:migrate",
+        "type": "shell"
+      }
+    ]
+  },
+  "vue3": {
+    "commands": [
+      {
+        "name": "dev",
+        "description": "Start Vite development server",
+        "command": "npm run dev",
+        "type": "shell"
+      },
+      {
+        "name": "build",
+        "description": "Build for production",
+        "command": "npm run build",
+        "type": "shell"
+      },
+      {
+        "name": "test",
+        "description": "Run tests with Vitest",
+        "command": "npm test",
+        "type": "shell"
+      },
+      {
+        "name": "lint",
+        "description": "Lint code",
+        "command": "npm run lint",
+        "type": "shell"
+      }
+    ]
+  }
+}

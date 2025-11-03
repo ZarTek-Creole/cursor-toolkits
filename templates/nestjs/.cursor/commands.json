@@ -1,0 +1,49 @@
+{
+  "commands": [
+    {
+      "name": "dev",
+      "description": "Start NestJS development server",
+      "command": "npm run start:dev",
+      "type": "shell"
+    },
+    {
+      "name": "build",
+      "description": "Build NestJS application",
+      "command": "npm run build",
+      "type": "shell"
+    },
+    {
+      "name": "test",
+      "description": "Run tests",
+      "command": "npm test",
+      "type": "shell"
+    },
+    {
+      "name": "test-e2e",
+      "description": "Run e2e tests",
+      "command": "npm run test:e2e",
+      "type": "shell"
+    },
+    {
+      "name": "generate-module",
+      "description": "Generate NestJS module",
+      "command": "nest generate module",
+      "type": "shell",
+      "prompt": "Enter module name:"
+    },
+    {
+      "name": "generate-controller",
+      "description": "Generate NestJS controller",
+      "command": "nest generate controller",
+      "type": "shell",
+      "prompt": "Enter controller name:"
+    },
+    {
+      "name": "generate-service",
+      "description": "Generate NestJS service",
+      "command": "nest generate service",
+      "type": "shell",
+      "prompt": "Enter service name:"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "commands": [
+    {
+      "name": "dev",
+      "description": "Start Express development server",
+      "command": "npm run dev",
+      "type": "shell"
+    },
+    {
+      "name": "build",
+      "description": "Build TypeScript",
+      "command": "npm run build",
+      "type": "shell"
+    },
+    {
+      "name": "test",
+      "description": "Run tests with Jest",
+      "command": "npm test",
+      "type": "shell"
+    },
+    {
+      "name": "prisma-generate",
+      "description": "Generate Prisma Client",
+      "command": "npm run prisma:generate",
+      "type": "shell"
+    },
+    {
+      "name": "prisma-migrate",
+      "description": "Run Prisma migrations",
+      "command": "npm run prisma:migrate",
+      "type": "shell"
+    },
+    {
+      "name": "prisma-studio",
+      "description": "Open Prisma Studio",
+      "command": "npm run prisma:studio",
+      "type": "shell"
+    }
+  ]
+}

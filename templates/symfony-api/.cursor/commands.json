@@ -1,0 +1,42 @@
+{
+  "commands": [
+    {
+      "name": "server-start",
+      "description": "Start Symfony server",
+      "command": "symfony server:start",
+      "type": "shell"
+    },
+    {
+      "name": "test",
+      "description": "Run PHPUnit tests",
+      "command": "php bin/phpunit",
+      "type": "shell"
+    },
+    {
+      "name": "make-controller",
+      "description": "Generate Symfony controller",
+      "command": "php bin/console make:controller",
+      "type": "shell",
+      "prompt": "Enter controller name:"
+    },
+    {
+      "name": "make-entity",
+      "description": "Generate Doctrine entity",
+      "command": "php bin/console make:entity",
+      "type": "shell",
+      "prompt": "Enter entity name:"
+    },
+    {
+      "name": "make-migration",
+      "description": "Generate Doctrine migration",
+      "command": "php bin/console make:migration",
+      "type": "shell"
+    },
+    {
+      "name": "migrate",
+      "description": "Run Doctrine migrations",
+      "command": "php bin/console doctrine:migrations:migrate",
+      "type": "shell"
+    }
+  ]
+}
