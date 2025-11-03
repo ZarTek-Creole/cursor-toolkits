@@ -6,6 +6,9 @@ on:
   pull_request_review:
     types: [submitted]
 
+permissions:
+  contents: read
+
 jobs:
   check-review:
     runs-on: ubuntu-latest
@@ -47,6 +50,9 @@ jobs:
   assign-reviewers:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request' && github.event.action == 'opened'
+    permissions:
+      pull-requests: write
+      contents: read
     steps:
       - name: Assign Default Reviewers
         uses: actions/github-script@v8
