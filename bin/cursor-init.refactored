@@ -1,0 +1,106 @@
+#!/bin/bash
+
+# cursor-init - Intelligent project initializer for Cursor IDE (REFACTORED)
+# Creates production-ready projects with optimized Cursor rules
+
+set -e
+
+VERSION="1.0.0"
+TOOLKITS_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+TEMPLATES_DIR="$TOOLKITS_DIR/templates"
+LIB_DIR="$TOOLKITS_DIR/lib"
+
+# Colors
+CYAN='\033[0;36m'
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+MAGENTA='\033[0;35m'
+BOLD='\033[1m'
+NC='\033[0m'
+
+# Source modules
+source "$LIB_DIR/cli/banner.sh"
+source "$LIB_DIR/generation/templates.sh"
+source "$LIB_DIR/validation/validators.sh"
+source "$LIB_DIR/analysis/detector.sh"
+source "$LIB_DIR/generation/project.sh"
+source "$LIB_DIR/generation/mcp.sh"
+
+# Parse command line arguments
+STACK=""
+PROJECT_NAME=""
+FEATURES=""
+OUTPUT=""
+FROM_EXISTING=""
+MCP_SERVERS=""
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --stack)
+            STACK="$2"
+            shift 2
+            ;;
+        --name)
+            PROJECT_NAME="$2"
+            shift 2
+            ;;
+        --features)
+            FEATURES="$2"
+            shift 2
+            ;;
+        --mcp)
+            MCP_SERVERS="$2"
+            shift 2
+            ;;
+        --from-existing)
+            FROM_EXISTING="$2"
+            shift 2
+            ;;
+        --output)
+            OUTPUT="$2"
+            shift 2
+            ;;
+        --list)
+            list_templates
+            exit 0
+            ;;
+        --info)
+            show_template_info "$2" "$TEMPLATES_DIR"
+            exit 0
+            ;;
+        --help)
+            usage "$VERSION"
+            exit 0
+            ;;
+        --version)
+            echo "cursor-init v${VERSION}"
+            exit 0
+            ;;
+        *)
+            echo -e "${RED}Foreign option: $1${NC}"
+            usage "$VERSION"
+            exit 1
+            ;;
+    esac
+done
+
+# Main logic
+if [ -n "$FROM_EXISTING" ]; then
+    # Analyze existing project
+    analyze_existing_project "$FROM_EXISTING"
+elif [ -z "$STACK" ]; then
+    # Interactive mode
+    source "$LIB_DIR/cli/interactive.sh"
+    interactive_mode "$TOOLKITS_DIR" "$TEMPLATES_DIR"
+else
+    # Direct mode
+    if [ -z "$PROJECT_NAME" ]; then
+        echo -e "${RED}Error: --name is required in non-interactive mode${NC}"
+        usage "$VERSION"
+        exit 1
+    fi
+    
+    create_project "$STACK" "$PROJECT_NAME" "$OUTPUT" "$FEATURES" "$MCP_SERVERS" "$TEMPLATES_DIR" "$TOOLKITS_DIR"
+fi
