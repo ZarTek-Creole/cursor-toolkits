@@ -28,33 +28,33 @@ test: ## Run all tests
 	@bash tests/test_prompts_commands.sh || exit 1
 	@echo "$(GREEN)✓ All tests passed$(NC)"
 
-test:coverage-check: ## Check coverage for all modules (requires dependencies)
+test-coverage-check: ## Check coverage for all modules (requires dependencies)
 	@echo "$(CYAN)$(BOLD)Checking code coverage...$(NC)"
 	@bash scripts/check-coverage.sh || exit 1
 	@echo "$(GREEN)✓ Coverage check complete$(NC)"
 
-test:security: ## Run security audit
+test-security: ## Run security audit
 	@echo "$(CYAN)$(BOLD)Running security audit...$(NC)"
 	@bash scripts/audit-security.sh || exit 1
 	@echo "$(GREEN)✓ Security audit complete$(NC)"
 
-test:unit: ## Run unit tests only
+test-unit: ## Run unit tests only
 	@echo "$(CYAN)$(BOLD)Running unit tests...$(NC)"
 	@python3 -m pytest tests/test_check_token_limits.py lib/utils/tests/ -v --cov=lib --cov-report=term || exit 1
 	@echo "$(GREEN)✓ Unit tests passed$(NC)"
 
-test:python: ## Run Python tests with coverage
+test-python: ## Run Python tests with coverage
 	@echo "$(CYAN)$(BOLD)Running Python tests...$(NC)"
 	@python3 -m pytest tests/test_check_token_limits.py lib/utils/tests/ -v --cov=lib --cov-report=term --cov-report=html --cov-fail-under=90 || exit 1
 	@cd templates/python-fastapi && pytest --cov=src --cov-report=term --cov-report=html --cov-fail-under=90 || exit 1
 	@echo "$(GREEN)✓ Python tests passed$(NC)"
 
-test:node: ## Run Node.js tests
+test-node: ## Run Node.js tests
 	@echo "$(CYAN)$(BOLD)Running Node.js tests...$(NC)"
 	@npm run test:unit || exit 1
 	@echo "$(GREEN)✓ Node.js tests passed$(NC)"
 
-test:coverage: ## Generate coverage reports for all languages
+test-coverage: ## Generate coverage reports for all languages
 	@echo "$(CYAN)$(BOLD)Generating coverage reports...$(NC)"
 	@python3 -m pytest tests/test_check_token_limits.py lib/utils/tests/ -v --cov=lib --cov-report=html --cov-report=term || true
 	@cd templates/python-fastapi && pytest --cov=src --cov-report=html --cov-report=term || true
@@ -70,13 +70,13 @@ validate: ## Validate all templates and rules
 	@python3 lib/validators/check-token-limits.py || exit 1
 	@echo "$(GREEN)✓ Validation successful$(NC)"
 
-validate:rules: ## Validate .cursorrules files
+validate-rules: ## Validate .cursorrules files
 	@bash lib/validators/validate-cursorrules.sh
 
-validate:mcp: ## Validate MCP configurations
+validate-mcp: ## Validate MCP configurations
 	@bash lib/validators/validate-mcp-config.sh
 
-check:tokens: ## Check token limits for all rules
+check-tokens: ## Check token limits for all rules
 	@python3 lib/validators/check-token-limits.py
 
 clean: ## Clean generated files and caches

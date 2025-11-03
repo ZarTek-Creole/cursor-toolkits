@@ -1,0 +1,27 @@
+# Code Owners for Cursor Toolkits
+# GitHub will automatically request reviews from these teams/users
+
+# Core Infrastructure
+/bin/                   @cursor-toolkits/maintainers
+/lib/                   @cursor-toolkits/maintainers
+/tests/                 @cursor-toolkits/maintainers
+
+# Templates
+/templates/             @cursor-toolkits/maintainers @cursor-toolkits/templates-team
+
+# Documentation
+/docs/                  @cursor-toolkits/maintainers @cursor-toolkits/docs-team
+/README.md              @cursor-toolkits/maintainers
+
+# CI/CD
+/.github/               @cursor-toolkits/maintainers
+/Makefile               @cursor-toolkits/maintainers
+
+# Configuration
+/package.json           @cursor-toolkits/maintainers
+/pyproject.toml         @cursor-toolkits/maintainers
+
+# Note: Replace @cursor-toolkits/* with actual GitHub usernames/teams
+# Example:
+# /bin/                   @your-username
+# /lib/                   @your-username
