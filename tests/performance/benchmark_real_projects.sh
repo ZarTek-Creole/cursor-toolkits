@@ -33,7 +33,12 @@ benchmark_generation() {
     fi
     
     END_TIME=$(date +%s.%N)
-    DURATION=$(echo "$END_TIME - $START_TIME" | bc)
+    # Use Python for floating point calculation if bc not available
+    if command -v bc &> /dev/null; then
+        DURATION=$(echo "$END_TIME - $START_TIME" | bc)
+    else
+        DURATION=$(python3 -c "print($END_TIME - $START_TIME)")
+    fi
     
     if [ -d "$name" ]; then
         echo -e "${GREEN}${DURATION}s${NC}"
@@ -84,7 +89,11 @@ for project in bench-fastapi bench-nextjs bench-symfony; do
             python3 /workspace/lib/generators/rules_generator.py > /dev/null 2>&1 || true
             cd ..
             END_TIME=$(date +%s.%N)
-            DURATION=$(echo "$END_TIME - $START_TIME" | bc)
+            if command -v bc &> /dev/null; then
+                DURATION=$(echo "$END_TIME - $START_TIME" | bc)
+            else
+                DURATION=$(python3 -c "print($END_TIME - $START_TIME)")
+            fi
             echo -e "${GREEN}${DURATION}s${NC}"
         else
             echo "N/A"
@@ -104,7 +113,11 @@ for project in bench-fastapi bench-nextjs; do
         if [ -f "/workspace/lib/generators/prompts_generator.py" ]; then
             python3 /workspace/lib/generators/prompts_generator.py "$(basename $project)" "$(pwd)/$project" > /dev/null 2>&1 || true
             END_TIME=$(date +%s.%N)
-            DURATION=$(echo "$END_TIME - $START_TIME" | bc)
+            if command -v bc &> /dev/null; then
+                DURATION=$(echo "$END_TIME - $START_TIME" | bc)
+            else
+                DURATION=$(python3 -c "print($END_TIME - $START_TIME)")
+            fi
             echo -e "${GREEN}${DURATION}s${NC}"
         else
             echo "N/A"
@@ -126,7 +139,11 @@ for cmd in "${commands[@]}"; do
     START_TIME=$(date +%s.%N)
     /workspace/bin/cursor-init $cmd > /dev/null 2>&1
     END_TIME=$(date +%s.%N)
-    DURATION=$(echo "$END_TIME - $START_TIME" | bc)
+    if command -v bc &> /dev/null; then
+        DURATION=$(echo "$END_TIME - $START_TIME" | bc)
+    else
+        DURATION=$(python3 -c "print($END_TIME - $START_TIME)")
+    fi
     echo -e "${GREEN}${DURATION}s${NC}"
 done
 
@@ -136,12 +153,24 @@ echo "=== Results Summary ===\n"
 if [ -f "$BENCHMARK_DIR/results.csv" ]; then
     echo "Generation Times:"
     tail -n +2 "$BENCHMARK_DIR/results.csv" | while IFS=',' read stack name duration files dirs; do
-        if (( $(echo "$duration < 10.0" | bc -l) )); then
-            status="${GREEN}✓${NC}"
-        elif (( $(echo "$duration < 30.0" | bc -l) )); then
-            status="${YELLOW}⚠${NC}"
+        # Compare using Python if bc not available
+        if command -v bc &> /dev/null; then
+            if (( $(echo "$duration < 10.0" | bc -l) )); then
+                status="${GREEN}✓${NC}"
+            elif (( $(echo "$duration < 30.0" | bc -l) )); then
+                status="${YELLOW}⚠${NC}"
+            else
+                status="${RED}✗${NC}"
+            fi
         else
-            status="${RED}✗${NC}"
+            COMPARE=$(python3 -c "print(1 if $duration < 10.0 else (2 if $duration < 30.0 else 3))")
+            if [ "$COMPARE" = "1" ]; then
+                status="${GREEN}✓${NC}"
+            elif [ "$COMPARE" = "2" ]; then
+                status="${YELLOW}⚠${NC}"
+            else
+                status="${RED}✗${NC}"
+            fi
         fi
         echo -e "  $status $stack: ${duration}s (${files} files)"
     done
