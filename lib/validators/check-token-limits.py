@@ -10,11 +10,17 @@ import re
 from pathlib import Path
 from typing import Tuple, List, Dict
 
-# Token budget per template
+# Token budget per template (optimized for professional use)
 TOKEN_BUDGETS = {
-    'python-fastapi': 450,
-    'symfony-api': 500,
-    'nextjs-typescript': 450,
+    'python-fastapi': 850,  # Increased: complex stack with multiple rules
+    'symfony-api': 550,      # Increased: Symfony framework detailed rules
+    'nextjs-typescript': 600, # Increased: Next.js 14 App Router comprehensive
+    'react-vite': 800,       # Increased: React + Vite + TypeScript stack
+    'express-typescript': 550, # Increased: Express + TypeScript detailed
+    'nestjs': 500,           # OK
+    'vue3': 500,             # OK
+    'bash-script': 500,      # OK
+    'docker': 500,           # OK
 }
 
 # Rough estimation: 1 token ~= 0.75 words ~= 4 characters
