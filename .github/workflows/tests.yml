@@ -11,7 +11,7 @@ jobs:
     name: Python Tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -47,7 +47,7 @@ jobs:
     name: Bash CLI Tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       
       - name: Make scripts executable
         run: chmod +x bin/cursor-init tests/*.sh lib/validators/*.sh
@@ -62,7 +62,7 @@ jobs:
     name: Node.js Tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       
       - name: Set up Node.js
         uses: actions/setup-node@v6
@@ -85,7 +85,7 @@ jobs:
     name: Next.js Template Tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       
       - name: Set up Node.js
         uses: actions/setup-node@v6
@@ -104,7 +104,7 @@ jobs:
     name: Symfony Template Tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
@@ -126,7 +126,7 @@ jobs:
     name: Validation
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       
       - name: Make scripts executable
         run: chmod +x bin/cursor-init tests/*.sh lib/validators/*.sh
@@ -142,7 +142,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test-python, test-node, test-nextjs]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       
       - name: Generate coverage report
         run: |
