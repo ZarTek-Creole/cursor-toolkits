@@ -128,7 +128,7 @@ Chaque template inclut des commandes dans `.cursor/commands.json` :
 
 Utilisez `Cmd/Ctrl + Shift + P` puis tapez le nom de la commande.
 
-👉 [Documentation complète des commandes](docs/PROMPTS_AND_COMMANDS.md)
+👉 [Documentation complète des commandes](docs/PROMPTS_AND_COMMANDS.md) | [Exemples d'utilisation](docs/EXAMPLES.md)
 
 ### 🔌 Intégration MCP
 

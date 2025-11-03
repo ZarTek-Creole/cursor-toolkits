@@ -291,6 +291,7 @@ php bin/phpunit --coverage-text
 - [Installation](INSTALLATION.md)
 - [Templates](TEMPLATES.md)
 - [Prompts et Commandes](PROMPTS_AND_COMMANDS.md)
+- [Exemples d'Utilisation](EXAMPLES.md)
 - [MCP Servers](MCP_SERVERS.md)
 - [Token Optimization](TOKEN_OPTIMIZATION.md)
 - [Contributing](CONTRIBUTING.md)

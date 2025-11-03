@@ -44,5 +44,24 @@
     "create_component": "Crée un composant Vue 3 dans components/ avec :\n- Composition API avec <script setup>\n- TypeScript strict\n- Props typées\n- Styles TailwindCSS\n- Tests avec Vitest",
     "create_composable": "Crée un composable dans composables/ pour [FONCTIONNALITÉ] avec :\n- TypeScript types\n- Reactive state\n- Tests\n- Documentation",
     "create_store": "Crée un store Pinia pour [DOMAINE] avec :\n- State typé\n- Actions\n- Getters\n- Tests"
+  },
+  "python-django": {
+    "create_view": "Crée une View Django REST Framework dans views.py avec :\n- ViewSet ou APIView appropriée\n- Permissions\n- Serializers\n- Tests",
+    "create_model": "Crée un modèle Django dans models.py avec :\n- Champs typés\n- Relations\n- Méthodes\n- Migration",
+    "create_serializer": "Crée un Serializer DRF dans serializers.py pour [MODEL] avec :\n- Champs appropriés\n- Validation\n- Méthodes custom si nécessaire",
+    "create_url": "Crée les URLs Django pour [APP] avec :\n- Router DRF si ViewSet\n- URL patterns appropriés\n- Namespace si nécessaire",
+    "create_migration": "Crée une migration Django pour [DESCRIPTION] avec :\n- python manage.py makemigrations\n- Modifications de schéma\n- Données de seed si nécessaire"
+  },
+  "t3-stack": {
+    "create_trpc_router": "Crée un router tRPC dans server/api/routers/ avec :\n- Procedures typées\n- Validation avec Zod\n- Error handling\n- Tests",
+    "create_prisma_model": "Ajoute un modèle Prisma dans schema.prisma avec :\n- Champs typés\n- Relations\n- Indexes\n- Migration",
+    "create_next_page": "Crée une page Next.js avec tRPC dans app/ avec :\n- Server Component\n- Appel tRPC avec useQuery\n- Types automatiques\n- Loading/Error states",
+    "create_api_procedure": "Crée une nouvelle procedure tRPC pour [ACTION] avec :\n- Input validation Zod\n- Business logic\n- Error handling\n- Type safety"
+  },
+  "php-api": {
+    "create_route": "Crée une route Slim Framework dans routes/ ou dans un Route Group avec :\n- Méthode HTTP appropriée\n- Controller dans src/Controllers/\n- Validation\n- Response JSON",
+    "create_controller": "Crée un Controller Slim dans src/Controllers/ pour [RESOURCE] avec :\n- Actions CRUD\n- Dependency Injection\n- Response helpers\n- Tests",
+    "create_middleware": "Crée un Middleware Slim pour [FONCTIONNALITÉ] avec :\n- Request/Response handling\n- Error handling\n- Tests",
+    "create_service": "Crée un Service dans src/Services/ pour [FONCTIONNALITÉ] avec :\n- Logique métier\n- Dependency Injection\n- Tests unitaires"
   }
 }

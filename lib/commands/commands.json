@@ -162,7 +162,6 @@
         "command": "npm run build",
         "type": "shell"
       },
-      "test",
       {
         "name": "test",
         "description": "Run tests",
@@ -264,6 +263,114 @@
         "name": "lint",
         "description": "Lint code",
         "command": "npm run lint",
+        "type": "shell"
+      }
+    ]
+  },
+  "python-django": {
+    "commands": [
+      {
+        "name": "runserver",
+        "description": "Start Django development server",
+        "command": "python manage.py runserver",
+        "type": "shell"
+      },
+      {
+        "name": "makemigrations",
+        "description": "Create Django migrations",
+        "command": "python manage.py makemigrations",
+        "type": "shell"
+      },
+      {
+        "name": "migrate",
+        "description": "Run Django migrations",
+        "command": "python manage.py migrate",
+        "type": "shell"
+      },
+      {
+        "name": "test",
+        "description": "Run Django tests",
+        "command": "python manage.py test",
+        "type": "shell"
+      },
+      {
+        "name": "createsuperuser",
+        "description": "Create Django superuser",
+        "command": "python manage.py createsuperuser",
+        "type": "shell"
+      },
+      {
+        "name": "shell",
+        "description": "Open Django shell",
+        "command": "python manage.py shell",
+        "type": "shell"
+      }
+    ]
+  },
+  "t3-stack": {
+    "commands": [
+      {
+        "name": "dev",
+        "description": "Start Next.js development server",
+        "command": "npm run dev",
+        "type": "shell"
+      },
+      {
+        "name": "build",
+        "description": "Build for production",
+        "command": "npm run build",
+        "type": "shell"
+      },
+      {
+        "name": "test",
+        "description": "Run tests",
+        "command": "npm test",
+        "type": "shell"
+      },
+      {
+        "name": "db-push",
+        "description": "Push Prisma schema to database",
+        "command": "npm run db:push",
+        "type": "shell"
+      },
+      {
+        "name": "db-studio",
+        "description": "Open Prisma Studio",
+        "command": "npm run db:studio",
+        "type": "shell"
+      },
+      {
+        "name": "type-check",
+        "description": "Run TypeScript type checking",
+        "command": "npm run type-check",
+        "type": "shell"
+      }
+    ]
+  },
+  "php-api": {
+    "commands": [
+      {
+        "name": "serve",
+        "description": "Start PHP built-in server",
+        "command": "php -S localhost:8000 -t public",
+        "type": "shell"
+      },
+      {
+        "name": "test",
+        "description": "Run PHPUnit tests",
+        "command": "vendor/bin/phpunit",
+        "type": "shell"
+      },
+      {
+        "name": "composer-install",
+        "description": "Install PHP dependencies",
+        "command": "composer install",
+        "type": "shell"
+      },
+      {
+        "name": "composer-update",
+        "description": "Update PHP dependencies",
+        "command": "composer update",
         "type": "shell"
       }
     ]

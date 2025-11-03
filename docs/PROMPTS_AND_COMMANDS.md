@@ -78,6 +78,28 @@ Dans Cursor IDE, vous pouvez utiliser les prompts de deux façons :
 - `create_composable` - Créer un composable
 - `create_store` - Créer un store Pinia
 
+#### Python Django
+
+- `create_view` - Créer une View DRF
+- `create_model` - Créer un modèle Django
+- `create_serializer` - Créer un Serializer DRF
+- `create_url` - Créer les URLs Django
+- `create_migration` - Créer une migration
+
+#### T3 Stack
+
+- `create_trpc_router` - Créer un router tRPC
+- `create_prisma_model` - Ajouter un modèle Prisma
+- `create_next_page` - Créer une page Next.js avec tRPC
+- `create_api_procedure` - Créer une procedure tRPC
+
+#### PHP API (Slim)
+
+- `create_route` - Créer une route Slim
+- `create_controller` - Créer un Controller Slim
+- `create_middleware` - Créer un Middleware
+- `create_service` - Créer un Service
+
 ## ⚡ Commandes Personnalisées
 
 Chaque template inclut des commandes personnalisées dans `.cursor/commands.json`. Ces commandes sont disponibles dans la palette de commandes Cursor (`Cmd/Ctrl + Shift + P`).
@@ -149,6 +171,31 @@ Chaque template inclut des commandes personnalisées dans `.cursor/commands.json
 - `build` - Builder pour la production
 - `test` - Exécuter les tests Vitest
 - `lint` - Linter le code
+
+#### Python Django
+
+- `runserver` - Démarrer le serveur Django
+- `makemigrations` - Créer des migrations
+- `migrate` - Exécuter les migrations
+- `test` - Exécuter les tests Django
+- `createsuperuser` - Créer un superutilisateur
+- `shell` - Ouvrir le shell Django
+
+#### T3 Stack
+
+- `dev` - Démarrer Next.js
+- `build` - Builder pour la production
+- `test` - Exécuter les tests
+- `db-push` - Pousser le schéma Prisma
+- `db-studio` - Ouvrir Prisma Studio
+- `type-check` - Vérifier les types TypeScript
+
+#### PHP API (Slim)
+
+- `serve` - Démarrer le serveur PHP
+- `test` - Exécuter les tests PHPUnit
+- `composer-install` - Installer les dépendances
+- `composer-update` - Mettre à jour les dépendances
 
 ## 🔧 Personnalisation
 
