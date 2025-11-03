@@ -1,27 +1,21 @@
-# 🎯 cursor-toolkits
+# 🔧 Cursor Toolkits
 
-> **Le couteau suisse pour Cursor IDE** - Templates production-ready avec règles optimisées et intégration MCP
+**Production-ready templates for Cursor IDE** with optimized rules, MCP integration, predefined prompts, and custom commands.
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](.version)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Cursor](https://img.shields.io/badge/cursor-%3E%3D1.7.0-purple.svg)](https://cursor.com)
-[![Tests](https://img.shields.io/badge/tests-passing-brightgreen.svg)](tests/)
-[![Coverage](https://img.shields.io/badge/coverage-90%2B-success)](COVERAGE.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](https://github.com/your-username/cursor-toolkits)
 
-**cursor-toolkits** est un écosystème complet de templates optimisés pour maximiser votre productivité avec Cursor IDE. Chaque template inclut :
+## ✨ Fonctionnalités
 
-- ✅ **Règles optimisées token-safe** (`.cursor/rules/*.mdc` < 500 lignes)
-- ✅ **Prompts prédéfinis** (`.cursor/prompts.json`) par type de projet
-- ✅ **Commandes personnalisées** (`.cursor/commands.json`) pour chaque stack
-- ✅ **Configuration MCP** prête à l'emploi
-- ✅ **Code boilerplate fonctionnel** et production-ready
-- ✅ **Tests automatisés** avec 90%+ de couverture
-- ✅ **CI/CD configuré** (GitHub Actions)
-- ✅ **Documentation complète**
+- 🎯 **Templates Production-Ready**: 10+ templates pour différentes technologies
+- 📝 **Règles Cursor Optimisées**: Génération automatique de règles `.cursor/rules/*.mdc`
+- 🔌 **Intégration MCP**: Configuration MCP pour chaque template
+- 💬 **Prompts Prédéfinis**: Prompts contextuels par type de projet
+- ⌨️ **Commandes Personnalisées**: Commandes shell intégrées à Cursor IDE
+- ✅ **Tests Complets**: Coverage >90%, tests unitaires et d'intégration
+- 📚 **Documentation Complète**: Guides, exemples, et best practices
 
-## 🚀 Quick Start
-
-### Installation
+## 🚀 Installation
 
 ```bash
 # Via npm (recommandé)
@@ -33,159 +27,79 @@ cd cursor-toolkits
 make install
 ```
 
-### Créer un projet
+## 📖 Utilisation Rapide
+
+### Créer un nouveau projet
 
 ```bash
-# Mode interactif (recommandé) 🎨
+# Mode interactif
 cursor-init
 
 # Mode direct
-cursor-init --stack python-fastapi --name my-api
+cursor-init --stack python-fastapi --name my-api --features docker,ci,tests
+```
 
-# Avec fonctionnalités
-cursor-init --stack nextjs-typescript --name my-app --features docker,ci,tests
+### Lister les templates disponibles
 
-# Voir tous les templates
+```bash
 cursor-init --list
-
-# Informations sur un template
 cursor-init --info python-fastapi
 ```
 
 ## 📦 Templates Disponibles
 
-### 🔧 Backend APIs
+### Backend
 
-| Template | Stack | Features |
-|----------|-------|----------|
-| **python-fastapi** | FastAPI + SQLAlchemy 2.0 + PostgreSQL | Async, Docker, Redis, Tests |
-| **python-django** | Django 5 + DRF + PostgreSQL | Admin, REST API, Tests |
-| **express-typescript** | Express.js + TypeScript + Prisma | REST API, Jest, Docker |
-| **nestjs** | NestJS + TypeScript + PostgreSQL | Modular, TypeORM, Tests |
-| **symfony-api** | Symfony 7 + Doctrine ORM 3 | API Platform, Messenger, Tests |
-| **php-api** | PHP 8.3 + Slim Framework | REST API, Composer, Tests |
-| **go** | Go HTTP Server | Standard library, Testing |
-| **rust** | Rust Web Server | Actix/Axum, Serde, Tests |
-| **ruby** | Ruby on Rails | ActiveRecord, RSpec, Tests |
+- **Python FastAPI**: FastAPI + SQLAlchemy 2.0 + Pydantic 2 + PostgreSQL + Redis
+- **Python Django**: Django REST Framework + PostgreSQL
+- **Symfony API**: Symfony 7 + Doctrine ORM 3
+- **PHP API**: Slim Framework + Eloquent
 
-### 🎨 Frontend
+### Frontend & Full-Stack
 
-| Template | Stack | Features |
-|----------|-------|----------|
-| **nextjs-typescript** | Next.js 14 + TypeScript + TailwindCSS | App Router, SSR, Components |
-| **react-vite** | React 18 + Vite + TypeScript | Fast HMR, TailwindCSS, Vitest |
-| **vue3** | Vue 3 + Vite + TypeScript | Composition API, TailwindCSS, Vitest |
+- **Next.js TypeScript**: Next.js 14 + TypeScript + TailwindCSS + App Router
+- **React + Vite**: React 18 + Vite + TypeScript + TailwindCSS + Vitest
+- **Vue 3**: Vue 3 + Vite + TypeScript + TailwindCSS + Composition API
+- **Express TypeScript**: Express.js + TypeScript + Prisma + Jest
+- **NestJS**: NestJS + TypeORM + PostgreSQL + Jest
+- **T3 Stack**: Next.js + tRPC + Prisma + TailwindCSS
 
-### 🚀 Full Stack
+### DevOps & Tools
 
-| Template | Stack | Features |
-|----------|-------|----------|
-| **t3-stack** | Next.js + tRPC + Prisma + TailwindCSS | Type-safe, Full-stack, Tests |
+- **Bash Script**: Scripts Bash avec BATS pour tests
+- **Docker**: Multi-stage builds + Docker Compose
 
-### 🛠️ DevOps & Tools
+## 🎯 Prompts Prédéfinis
 
-| Template | Stack | Features |
-|----------|-------|----------|
-| **docker** | Docker + Docker Compose | Multi-stage, Health checks, Networking |
-| **bash-script** | Bash Scripting | Error handling, Logging, BATS tests |
+Chaque template inclut des prompts prédéfinis pour accélérer le développement :
 
-## ✨ Fonctionnalités
+- Créer des endpoints/modèles/composants
+- Ajouter des tests
+- Configurer des features
+- Et plus encore...
 
-### 🎯 Interface Interactive Améliorée
+**Documentation complète**: [`docs/PROMPTS_AND_COMMANDS.md`](docs/PROMPTS_AND_COMMANDS.md)
 
-```bash
-cursor-init
-# Interface visuelle avec menus, couleurs, et guide étape par étape
-```
+## ⌨️ Commandes Personnalisées
 
-### 🔍 Analyse de Projets Existants
+Chaque template inclut des commandes shell personnalisées pour Cursor IDE :
 
-```bash
-# Générer des règles pour un projet existant
-generate-rules ./my-existing-project
+- Lancer les tests
+- Démarrer le serveur de développement
+- Linter le code
+- Et plus encore...
 
-# Analyser et suggérer des améliorations
-cursor-init --from-existing ./project --analyze
-```
-
-### 📝 Prompts Prédéfinis
-
-Chaque template inclut des prompts optimisés dans `.cursor/prompts.json` :
-
-```bash
-# Utiliser un prompt dans Cursor
-@create_endpoint Crée un endpoint pour gérer les utilisateurs
-@create_component Crée un composant UserCard
-```
-
-**Prompts disponibles par template** :
-- **FastAPI** : `create_endpoint`, `create_model`, `create_service`, `add_authentication`, etc.
-- **Next.js** : `create_page`, `create_component`, `create_api_route`, `optimize_seo`, etc.
-- **React/Vue** : `create_component`, `create_hook`, `create_context`, etc.
-- **Express/NestJS** : `create_route`, `create_middleware`, `add_prisma_model`, etc.
-- **Symfony** : `create_controller`, `create_entity`, `create_service`, etc.
-
-👉 [Documentation complète des prompts](docs/PROMPTS_AND_COMMANDS.md)
-
-### ⚡ Commandes Personnalisées
-
-Chaque template inclut des commandes dans `.cursor/commands.json` :
-
-- **FastAPI** : `run-tests`, `start-dev`, `create-migration`, etc.
-- **Next.js** : `dev`, `build`, `test`, `type-check`, etc.
-- **Express** : `dev`, `prisma-generate`, `prisma-studio`, etc.
-- **Symfony** : `server-start`, `make-controller`, `migrate`, etc.
-
-Utilisez `Cmd/Ctrl + Shift + P` puis tapez le nom de la commande.
-
-👉 [Documentation complète des commandes](docs/PROMPTS_AND_COMMANDS.md) | [Exemples d'utilisation](docs/EXAMPLES.md)
-
-### 🔌 Intégration MCP
-
-Chaque template inclut une configuration MCP d'exemple :
-
-- **GitHub** - Intégration GitHub
-- **PostgreSQL** - Accès base de données
-- **Redis** - Cache et sessions
-
-### 📊 Tests et Coverage
-
-- **90%+ de couverture** configurée pour tous les templates
-- **Tests unitaires** complets
-- **Tests d'intégration** inclus
-- **CI/CD** configuré avec GitHub Actions
-
-## 🏗️ Architecture
-
-```
-cursor-toolkits/
-├── bin/
-│   ├── cursor-init              # CLI principal
-│   └── generate-rules           # Générateur de règles
-├── lib/
-│   ├── validators/               # Validation configs
-│   ├── generators/              # Générateurs code
-│   └── utils/                   # Utilitaires
-├── templates/                   # Templates par technologie
-│   ├── python-fastapi/
-│   ├── nextjs-typescript/
-│   ├── react-vite/
-│   ├── express-typescript/
-│   └── ...
-├── docs/                        # Documentation complète
-├── tests/                       # Tests automatisés
-└── .github/workflows/           # CI/CD
-```
+**Documentation complète**: [`docs/PROMPTS_AND_COMMANDS.md`](docs/PROMPTS_AND_COMMANDS.md)
 
 ## 📚 Documentation
 
-- 📖 [Guide Complet](docs/GUIDE.md) - Guide d'utilisation détaillé
-- 🎯 [Quick Start](docs/QUICK_START.md) - Démarrage rapide par stack
-- 📋 [Templates Catalogue](docs/TEMPLATES.md) - Catalogue complet des templates
-- 🔌 [MCP Servers](docs/MCP_SERVERS.md) - Guide intégration MCP
-- ⚡ [Token Optimization](docs/TOKEN_OPTIMIZATION.md) - Optimisation consommation tokens
-- 📊 [Coverage](COVERAGE.md) - Guide de couverture de code
-- 🤝 [Contributing](docs/CONTRIBUTING.md) - Guidelines contribution
+- **[Guide Complet](docs/GUIDE.md)**: Documentation détaillée
+- **[Démarrage Rapide](docs/QUICK_START.md)**: Guide rapide
+- **[Prompts & Commandes](docs/PROMPTS_AND_COMMANDS.md)**: Documentation complète
+- **[Exemples](docs/EXAMPLES.md)**: Exemples d'utilisation
+- **[Audit Complet](docs/AUDIT_COMPLET.md)**: Analyse du projet
+- **[Plan d'Action](docs/PLAN_ACTION.md)**: Roadmap technique
+- **[Maintenance](docs/MAINTENANCE.md)**: Plan de maintenance
 
 ## 🧪 Tests
 
@@ -193,84 +107,56 @@ cursor-toolkits/
 # Tous les tests
 make test
 
-# Tests par langage
+# Tests avec couverture
+make test:coverage-check
+
+# Audit de sécurité
+make test:security
+
+# Tests spécifiques
 make test:python
 make test:node
-
-# Coverage reports
-make test:coverage
-
-# Validation
-make validate
 ```
 
-## 🎓 Features Principales
+## 🔍 Qualité et Sécurité
 
-### Règles Optimisées Token-Safe
-- **Format `.mdc`** (standard Cursor >= 1.7.0)
-- **< 500 lignes par fichier** (TOC-safe)
-- **Modulaires** : règles séparées par domaine (API, testing, Docker)
-- **Production-ready** : best practices incluses
+- ✅ Couverture de code >90% (objectif)
+- ✅ Tests automatisés (unitaires + intégration)
+- ✅ Audit de sécurité des dépendances
+- ✅ Validation des règles Cursor
+- ✅ Vérification des limites de tokens
 
-### Intégration MCP
-- **Configuration prête** dans `.cursor/.mcp.json.example`
-- **Servers recommandés** par template
-- **Documentation complète** pour chaque intégration
+## 📋 Structure du Projet
 
-### Boilerplates Complets
-- **Code fonctionnel immédiat** (pas de squelettes vides)
-- **Tests inclus** (pytest, PHPUnit, Jest, Vitest)
-- **CI/CD configuré** (GitHub Actions)
-- **Docker ready** (Dockerfile + docker-compose.yml)
-
-### CLI Intelligent
-- **Interface interactive** avec menus visuels
-- **Détection automatique** de stack existante
-- **Génération de règles** pour projets existants
-- **Validation** complète des inputs
-
-## 🔧 Configuration Requise
-
-- **Cursor IDE** >= 1.7.0
-- **Python** >= 3.11 (pour templates Python)
-- **Node.js** >= 18 (pour templates Node.js)
-- **PHP** >= 8.3 (pour templates PHP)
-- **Docker** (optionnel, pour templates avec conteneurs)
-
-## 📝 Tokens & Optimisation
-
-Chaque template respecte un budget token strict pour éviter les dépassements Cursor :
-
-- **Python FastAPI** : 450 tokens max
-- **Symfony API** : 500 tokens max
-- **Next.js TypeScript** : 450 tokens max
-
-> 💡 **Astuce** : Consultez [Token Optimization Guide](docs/TOKEN_OPTIMIZATION.md) pour optimiser votre utilisation Cursor.
+```
+cursor-toolkits/
+├── bin/                 # Scripts CLI
+├── lib/                 # Bibliothèques
+│   ├── generators/      # Générateurs (rules, prompts, commands)
+│   ├── validators/      # Validateurs
+│   ├── prompts/         # Prompts prédéfinis (JSON)
+│   └── commands/        # Commandes personnalisées (JSON)
+├── templates/           # Templates de projets
+├── docs/                # Documentation
+│   └── adr/            # Architecture Decision Records
+├── scripts/             # Scripts utilitaires
+├── tests/              # Tests
+└── Makefile            # Automatisation
+```
 
 ## 🤝 Contribution
 
-Les contributions sont les bienvenues ! Voir [CONTRIBUTING.md](docs/CONTRIBUTING.md) pour les guidelines.
-
-### Ajouter un nouveau template
-
-1. Créer le dossier dans `templates/`
-2. Ajouter `template.json` avec métadonnées
-3. Créer les règles dans `.cursor/rules/`
-4. Ajouter les tests
-5. Documenter dans `docs/TEMPLATES.md`
+Les contributions sont les bienvenues ! Voir [`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md) pour plus de détails.
 
 ## 📄 License
 
-MIT License - Voir [LICENSE](LICENSE) pour plus d'informations.
+MIT License - voir [`LICENSE`](LICENSE) pour plus de détails.
 
-## 🙏 Acknowledgments
+## 🙏 Remerciements
 
-- [Cursor IDE](https://cursor.com) pour l'éditeur révolutionnaire
-- Communauté Cursor pour les retours et améliorations
-- Projets open-source inspirants (FastAPI, Symfony, Next.js, etc.)
+- Cursor IDE pour l'outil exceptionnel
+- La communauté open-source pour l'inspiration
 
 ---
 
-**Made with ❤️ for the Cursor IDE community**
-
-**🌟 Star ce projet si vous le trouvez utile !**
+**Note**: Ce projet est en développement actif. Voir [`docs/AUDIT_COMPLET.md`](docs/AUDIT_COMPLET.md) pour l'état actuel et [`docs/PLAN_ACTION.md`](docs/PLAN_ACTION.md) pour la roadmap.

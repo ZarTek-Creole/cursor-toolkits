@@ -28,6 +28,16 @@ test: ## Run all tests
 	@bash tests/test_prompts_commands.sh || exit 1
 	@echo "$(GREEN)✓ All tests passed$(NC)"
 
+test:coverage-check: ## Check coverage for all modules (requires dependencies)
+	@echo "$(CYAN)$(BOLD)Checking code coverage...$(NC)"
+	@bash scripts/check-coverage.sh || exit 1
+	@echo "$(GREEN)✓ Coverage check complete$(NC)"
+
+test:security: ## Run security audit
+	@echo "$(CYAN)$(BOLD)Running security audit...$(NC)"
+	@bash scripts/audit-security.sh || exit 1
+	@echo "$(GREEN)✓ Security audit complete$(NC)"
+
 test:unit: ## Run unit tests only
 	@echo "$(CYAN)$(BOLD)Running unit tests...$(NC)"
 	@python3 -m pytest tests/test_check_token_limits.py lib/utils/tests/ -v --cov=lib --cov-report=term || exit 1
