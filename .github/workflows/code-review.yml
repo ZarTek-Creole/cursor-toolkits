@@ -49,7 +49,7 @@ jobs:
     if: github.event_name == 'pull_request' && github.event.action == 'opened'
     steps:
       - name: Assign Default Reviewers
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             // Get repository collaborators with write/admin access
