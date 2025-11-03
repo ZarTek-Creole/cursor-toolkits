@@ -9,10 +9,15 @@
   "scripts": {
     "install": "chmod +x bin/cursor-init",
     "test": "make test",
+    "test:unit": "jest --coverage",
+    "test:python": "cd templates/python-fastapi && pytest --cov=src --cov-report=term --cov-report=html",
+    "test:cli": "bash tests/test-cli.sh",
+    "test:validators": "bash tests/test-validators.sh && python3 -m pytest tests/test_check_token_limits.py -v",
     "validate": "make validate",
     "validate:rules": "lib/validators/validate-cursorrules.sh",
     "validate:mcp": "lib/validators/validate-mcp-config.sh",
-    "check:tokens": "python3 lib/validators/check-token-limits.py"
+    "check:tokens": "python3 lib/validators/check-token-limits.py",
+    "coverage": "jest --coverage --coverageThreshold='{\"global\":{\"branches\":90,\"functions\":90,\"lines\":90,\"statements\":90}}'"
   },
   "keywords": [
     "cursor",
@@ -33,6 +38,31 @@
   },
   "engines": {
     "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@jest/globals": "^30.2.0",
+    "@types/jest": "^30.0.0",
+    "jest": "^30.2.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {},
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 90,
+        "lines": 90,
+        "statements": 90
+      }
+    },
+    "collectCoverageFrom": [
+      "bin/**/*.js",
+      "lib/**/*.js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/tests/"
+    ]
   },
   "files": [
     "best/",

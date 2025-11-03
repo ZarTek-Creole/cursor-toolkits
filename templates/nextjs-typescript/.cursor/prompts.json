@@ -1,0 +1,34 @@
+{
+  "prompts": [
+    {
+      "name": "create_page",
+      "prompt": "Crée une nouvelle page Next.js dans app/ avec :\n- Server Component par défaut\n- TypeScript strict\n- Metadata appropriée\n- Layout si nécessaire\n- Tests",
+      "category": "development"
+    },
+    {
+      "name": "create_component",
+      "prompt": "Crée un composant React réutilisable dans components/ avec :\n- TypeScript avec interfaces pour props\n- Server Component si possible\n- Styles TailwindCSS\n- Tests avec React Testing Library",
+      "category": "development"
+    },
+    {
+      "name": "create_api_route",
+      "prompt": "Crée une route API Next.js dans app/api/ avec :\n- Handler async\n- Validation des requêtes\n- Gestion d'erreurs\n- Type safety\n- Tests",
+      "category": "development"
+    },
+    {
+      "name": "create_client_component",
+      "prompt": "Crée un Client Component avec 'use client' pour [FONCTIONNALITÉ] avec :\n- Hooks React appropriés\n- Gestion d'état\n- Types TypeScript\n- Tests",
+      "category": "development"
+    },
+    {
+      "name": "add_form",
+      "prompt": "Crée un formulaire avec validation pour [OBJET] en utilisant :\n- React Hook Form\n- Zod pour validation\n- TailwindCSS pour styles\n- Gestion d'erreurs",
+      "category": "development"
+    },
+    {
+      "name": "optimize_seo",
+      "prompt": "Optimise le SEO de cette page avec :\n- Metadata complète\n- Open Graph tags\n- Structured data\n- Sitemap si nécessaire",
+      "category": "development"
+    }
+  ]
+}

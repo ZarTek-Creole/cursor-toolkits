@@ -1,0 +1,24 @@
+{
+  "prompts": [
+    {
+      "name": "create_function",
+      "prompt": "Crée une fonction Bash dans lib/ avec :\n- Validation des paramètres\n- Gestion d'erreurs avec set -e\n- Documentation inline\n- Tests BATS correspondants",
+      "category": "development"
+    },
+    {
+      "name": "create_script",
+      "prompt": "Crée un script Bash dans bin/ avec :\n- set -euo pipefail\n- Gestion d'erreurs\n- Logging coloré\n- Options CLI avec getopts\n- Tests",
+      "category": "development"
+    },
+    {
+      "name": "add_error_handling",
+      "prompt": "Ajoute la gestion d'erreurs robuste à ce script avec :\n- trap pour cleanup\n- Validation des inputs\n- Messages d'erreur clairs\n- Codes de retour appropriés",
+      "category": "development"
+    },
+    {
+      "name": "create_logger",
+      "prompt": "Crée des fonctions de logging dans lib/logger.sh avec :\n- Niveaux DEBUG, INFO, WARN, ERROR\n- Couleurs appropriées\n- Sortie vers stderr pour erreurs\n- Format cohérent",
+      "category": "development"
+    }
+  ]
+}

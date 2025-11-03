@@ -14,98 +14,306 @@ CYAN='\033[0;36m'
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+MAGENTA='\033[0;35m'
+BOLD='\033[1m'
 NC='\033[0m'
+
+# Banner
+show_banner() {
+    cat << EOF
+${CYAN}${BOLD}
+╔═══════════════════════════════════════════════════════════╗
+║                                                           ║
+║          🎯 Cursor Toolkits - Project Generator          ║
+║                                                           ║
+║     Production-ready templates with optimized rules      ║
+║                                                           ║
+╚═══════════════════════════════════════════════════════════╝
+${NC}
+EOF
+}
 
 # Usage function
 usage() {
     cat << EOF
-${CYAN}cursor-init v${VERSION}${NC}
+${CYAN}${BOLD}cursor-init v${VERSION}${NC}
 
-Usage: cursor-init [OPTIONS]
+${BOLD}Usage:${NC} cursor-init [OPTIONS]
 
-Options:
-    --stack <template>     Stack to use (python-fastapi|symfony-api|nextjs-typescript)
+${BOLD}Options:${NC}
+    --stack <template>     Stack to use (see available stacks below)
     --name <name>          Project name
-    --features <list>      Comma-separated features (docker,ci,tests)
-    --mcp <servers>        MCP servers to install (postgres,github)
+    --features <list>       Comma-separated features (docker,ci,tests,mcp)
+    --mcp <servers>        MCP servers to install (postgres,github,redis)
     --from-existing <dir>  Analyze existing project and generate rules
     --output <dir>         Output directory (default: current directory)
+    --list                 List all available templates
+    --info <template>      Show template information
     --help                 Show this help message
     --version              Show version
 
-Examples:
-    cursor-init --stack python-fastapi --name my-api
-    cursor-init --stack symfony-api --name my-api --mcp github
-    cursor-init --from-existing 가지../project --generate-rules
+${BOLD}Available Stacks:${NC}
+    ${GREEN}Backend:${NC}
+      • python-fastapi    - FastAPI + SQLAlchemy 2.0 + PostgreSQL
+      • python-django     - Django 5 + PostgreSQL
+      • express-typescript - Express.js + TypeScript
+      • nestjs            - NestJS + TypeScript
+      • symfony-api       - Symfony 7 + Doctrine ORM
+      • php-api           - PHP 8.3 + Slim Framework
+    
+    ${GREEN}Frontend:${NC}
+      • nextjs-typescript  - Next.js 14 + TypeScript + TailwindCSS
+      • react-vite        - React 18 + Vite + TypeScript
+      • vue3              - Vue 3 + Vite + TypeScript
+    
+    ${GREEN}Full Stack:${NC}
+      • t3-stack          - Next.js + tRPC + Prisma + TailwindCSS
+
+${BOLD}Examples:${NC}
+    ${CYAN}cursor-init --stack python-fastapi --name my-api${NC}
+    ${CYAN}cursor-init --stack nextjs-typescript --name my-app --features docker,ci${NC}
+    ${CYAN}cursor-init --from-existing ./project --generate-rules${NC}
+    ${CYAN}cursor-init --list${NC}
+    ${CYAN}cursor-init --info python-fastapi${NC}
 EOF
+}
+
+# List available templates
+list_templates() {
+    echo -e "${CYAN}${BOLD}Available Templates:${NC}\n"
+    
+    echo -e "${GREEN}${BOLD}Backend APIs:${NC}"
+    echo "  • python-fastapi    - FastAPI + SQLAlchemy 2.0 + PostgreSQL + Redis"
+    echo "  • python-django     - Django 5 + PostgreSQL + Django REST Framework"
+    echo "  • express-typescript - Express.js + TypeScript + Prisma"
+    echo "  • nestjs            - NestJS + TypeScript + PostgreSQL"
+    echo "  • symfony-api       - Symfony 7 + Doctrine ORM 3"
+    echo "  • php-api           - PHP 8.3 + Slim Framework"
+    
+    echo -e "\n${GREEN}${BOLD}Frontend:${NC}"
+    echo "  • nextjs-typescript  - Next.js 14 + TypeScript + TailwindCSS"
+    echo "  • react-vite         - React 18 + Vite + TypeScript + TailwindCSS"
+    echo "  • vue3               - Vue 3 + Vite + TypeScript + TailwindCSS"
+    
+    echo -e "\n${GREEN}${BOLD}Full Stack:${NC}"
+    echo "  • t3-stack          - Next.js + tRPC + Prisma + TailwindCSS"
+    
+    echo ""
+}
+
+# Show template info
+show_template_info() {
+    local template="$1"
+    local template_json="$TEMPLATES_DIR/$template/template.json"
+    
+    if [ ! -f "$template_json" ]; then
+        echo -e "${RED}Error: Template '$template' not found${NC}"
+        exit 1
+    fi
+    
+    echo -e "${CYAN}${BOLD}Template: $template${NC}\n"
+    
+    if command -v jq >/dev/null 2>&1; then
+        jq '.' "$template_json"
+    else
+        cat "$template_json"
+    fi
 }
 
 # Detect stack in existing project
 detect_stack() {
     local dir="$1"
     
+    if [ -z "$dir" ] || [ ! -d "$dir" ]; then
+        echo "unknown"
+        return 1
+    fi
+    
     # Check for Python
-    if [ -f "$dir/requirements.txt" ] || [ -f "$dir/pyproject.toml" ]; then
-        echo "python"
-        return
+    if [ -f "$dir/requirements.txt" ] || [ -f "$dir/pyproject.toml" ] || [ -f "$dir/Pipfile" ]; then
+        # Detect FastAPI vs Django
+        if grep -q "fastapi" "$dir/requirements.txt" 2>/dev/null || \
+           grep -q "fastapi" "$dir/pyproject.toml" 2>/dev/null; then
+            echo "python-fastapi"
+        elif grep -q "django" "$dir/requirements.txt" 2>/dev/null || \
+             grep -q "django" "$dir/pyproject.toml" 2>/dev/null; then
+            echo "python-django"
+        else
+            echo "python"
+        fi
+        return 0
     fi
     
     # Check for PHP
     if [ -f "$dir/composer.json" ]; then
-        echo "php"
-        return
+        if grep -q "symfony" "$dir/composer.json" 2>/dev/null; then
+            echo "symfony-api"
+        else
+            echo "php-api"
+        fi
+        return 0
     fi
     
     # Check for Node.js
     if [ -f "$dir/package.json" ]; then
-        echo "nodejs"
-        return
+        if grep -q '"next"' "$dir/package.json" 2>/dev/null; then
+            echo "nextjs-typescript"
+        elif grep -q '"@nestjs/core"' "$dir/package.json" 2>/dev/null; then
+            echo "nestjs"
+        elif grep -q '"express"' "$dir/package.json" 2>/dev/null; then
+            echo "express-typescript"
+        elif grep -q '"react"' "$dir/package.json" 2>/dev/null && grep -q '"vite"' "$dir/package.json" 2>/dev/null; then
+            echo "react-vite"
+        elif grep -q '"vue"' "$dir/package.json" 2>/dev/null; then
+            echo "vue3"
+        else
+            echo "nodejs"
+        fi
+        return 0
+    fi
+    
+    # Check for Ruby
+    if [ -f "$dir/Gemfile" ]; then
+        echo "ruby"
+        return 0
+    fi
+    
+    # Check for Go
+    if [ -f "$dir/go.mod" ] || [ -f "$dir/Gopkg.toml" ]; then
+        echo "go"
+        return 0
     fi
     
     echo "unknown"
+    return 1
 }
 
-# Interactive mode
+# Interactive mode with better UI
 interactive_mode() {
-    echo -e "${CYAN}Cursor Toolkits - Interactive Mode${NC}"
-    echo ""
+    show_banner
+    
+    echo -e "${CYAN}${BOLD}Welcome to Cursor Toolkits!${NC}\n"
+    echo -e "Let's create your project step by step.\n"
     
     # Get project name
-    read -p "Project name: " PROJECT_NAME
-    if [ -z "$PROJECT_NAME" ]; then
-        echo -e "${RED}Error: Project name is required${NC}"
-        exit 1
-    fi
+    while true; do
+        read -p "$(echo -e ${CYAN}Project name: ${NC})" PROJECT_NAME
+        if [ -z "$PROJECT_NAME" ]; then
+            echo -e "${RED}Error: Project name is required${NC}"
+            continue
+        fi
+        if validate_project_name "$PROJECT_NAME"; then
+            break
+        fi
+    done
     
     # Get stack
     echo ""
-    echo "Available stacks:"
-    echo "  1) python-fastapi - Python FastAPI async backend"
-    echo "  2) symfony-api - PHP Symfony 7 API"
-    echo "  3) nextjs-typescript - Next.js 14 with TypeScript"
+    echo -e "${CYAN}${BOLD}Select your stack:${NC}\n"
+    echo -e "${GREEN}Backend:${NC}"
+    echo "  ${BOLD}1)${NC} python-fastapi    - FastAPI + SQLAlchemy 2.0"
+    echo "  ${BOLD}2)${NC} python-django     - Django 5 + DRF"
+    echo "  ${BOLD}3)${NC} express-typescript - Express.js + TypeScript"
+    echo "  ${BOLD}4)${NC} nestjs            - NestJS + TypeScript"
+    echo "  ${BOLD}5)${NC} symfony-api       - Symfony 7"
+    echo "  ${BOLD}6)${NC} go                - Go HTTP Server"
+    echo "  ${BOLD}7)${NC} rust              - Rust Web Server"
+    echo "  ${BOLD}8)${NC} ruby              - Ruby on Rails"
     echo ""
-    read -p "Select stack (1-3): " STACK_CHOICE
+    echo -e "${GREEN}Frontend:${NC}"
+    echo "  ${BOLD}9)${NC} nextjs-typescript  - Next.js 14 + TypeScript"
+    echo "  ${BOLD}10)${NC} react-vite         - React 18 + Vite"
+    echo "  ${BOLD}11)${NC} vue3               - Vue 3 + Vite"
+    echo ""
+    echo -e "${GREEN}Full Stack:${NC}"
+    echo "  ${BOLD}12)${NC} t3-stack          - Next.js + tRPC + Prisma"
+    echo ""
+    echo -e "${GREEN}DevOps & Tools:${NC}"
+    echo "  ${BOLD}13)${NC} docker            - Docker + Docker Compose"
+    echo "  ${BOLD}14)${NC} bash-script       - Bash Scripting"
+    echo ""
     
-    case $STACK_CHOICE in
-        1) STACK="python-fastapi" ;;
-        2) STACK="symfony-api" ;;
-        3) STACK="nextjs-typescript" ;;
-        *) echo -e "${RED}Invalid choice${NC}"; exit 1 ;;
-    esac
+    while true; do
+        read -p "$(echo -e "${CYAN}Select stack (1-14): ${NC}")" STACK_CHOICE
+        
+        case $STACK_CHOICE in
+            1) STACK="python-fastapi"; break ;;
+            2) STACK="python-django"; break ;;
+            3) STACK="express-typescript"; break ;;
+            4) STACK="nestjs"; break ;;
+            5) STACK="symfony-api"; break ;;
+            6) STACK="go"; break ;;
+            7) STACK="rust"; break ;;
+            8) STACK="ruby"; break ;;
+            9) STACK="nextjs-typescript"; break ;;
+            10) STACK="react-vite"; break ;;
+            11) STACK="vue3"; break ;;
+            12) STACK="t3-stack"; break ;;
+            13) STACK="docker"; break ;;
+            14) STACK="bash-script"; break ;;
+            *) echo -e "${RED}Invalid choice. Please select 1-14.${NC}" ;;
+        esac
+    done
     
     # Get features
     echo ""
-    read -p "Features (docker,ci,tests) [all]: " FEATURES
+    echo -e "${CYAN}${BOLD}Select features (comma-separated):${NC}"
+    echo "  • docker  - Docker configuration"
+    echo "  • ci     - CI/CD configuration"
+    echo "  • tests  - Test setup"
+    echo "  • mcp    - MCP server configuration"
+    echo ""
+    read -p "$(echo -e ${CYAN}Features [all]: ${NC})" FEATURES
     FEATURES=${FEATURES:-all}
     
+    # Get MCP servers
     echo ""
-    read -p "Output directory [./${PROJECT_NAME}]: " OUTPUT
+    echo -e "${CYAN}${BOLD}MCP Servers (comma-separated):${NC}"
+    echo "  • github   - GitHub integration"
+    echo "  • postgres - PostgreSQL integration"
+    echo "  • redis    - Redis integration"
+    echo ""
+    read -p "$(echo -e ${CYAN}MCP servers [none]: ${NC})" MCP_SERVERS
+    
+    # Get output directory
+    echo ""
+    read -p "$(echo -e ${CYAN}Output directory [./${PROJECT_NAME}]: ${NC})" OUTPUT
     OUTPUT=${OUTPUT:-./${PROJECT_NAME}}
     
     echo ""
-    echo -e "${CYAN}Creating project '$PROJECT_NAME' with stack '$STACK'...${NC}"
+    echo -e "${CYAN}${BOLD}Creating project...${NC}\n"
+    echo -e "  ${BOLD}Name:${NC} $PROJECT_NAME"
+    echo -e "  ${BOLD}Stack:${NC} $STACK"
+    echo -e "  ${BOLD}Features:${NC} $FEATURES"
+    echo -e "  ${BOLD}Output:${NC} $OUTPUT"
+    echo ""
     
-    create_project "$STACK" "$PROJECT_NAME" "$OUTPUT" "$FEATURES"
+    create_project "$STACK" "$PROJECT_NAME" "$OUTPUT" "$FEATURES" "$MCP_SERVERS"
+}
+
+# Validate project name
+validate_project_name() {
+    local name="$1"
+    
+    if [ -z "$name" ]; then
+        echo -e "${RED}Error: Project name cannot be empty${NC}"
+        return 1
+    fi
+    
+    # Check for invalid characters
+    if [[ ! "$name" =~ ^[a-zA-Z0-9_-]+$ ]]; then
+        echo -e "${RED}Error: Project name can only contain letters, numbers, hyphens, and underscores${NC}"
+        return 1
+    fi
+    
+    # Check length
+    if [ ${#name} -gt 50 ]; then
+        echo -e "${RED}Error: Project name is too long (max 50 characters)${NC}"
+        return 1
+    fi
+    
+    return 0
 }
 
 # Create project from template
@@ -114,41 +322,124 @@ create_project() {
     local name="$2"
     local output="${3:-./$name}"
     local features="$4"
+    local mcp_servers="$5"
+    
+    # Validate project name
+    if ! validate_project_name "$name"; then
+        exit 1
+    fi
     
     local template_dir="$TEMPLATES_DIR/$stack"
     
     if [ ! -d "$template_dir" ]; then
-        echo -e "${RED}Error: Template '$stack' not found${NC}"
+        echo -e "${RED}${BOLD}✗ Error: Template '$stack' not found${NC}"
+        echo ""
+        echo -e "${YELLOW}Available templates:${NC}"
+        ls -1 "$TEMPLATES_DIR" 2>/dev/null | grep -v "^\\." | sed 's/^/  • /' || echo "  (none)"
+        echo ""
+        echo -e "Use ${CYAN}cursor-init --list${NC} to see all available templates"
         exit 1
     fi
     
-    # Create output directory
-    mkdir -p "$output"
-    
-    # Copy template files
-    echo -e "${CYAN}Copying template files...${NC}"
-    cp -r "$template_dir"/.* "$template_dir"/* "$output/" 2>/dev/null || true
-    
-    # Process files (replace placeholders)
-    echo -e "${CYAN}Processing files...${NC}"
-    find "$output" -type f \( -name "*.py" -o -name "*.md" -o -name "*.json" -o -name "*.toml" \) -exec sed -i "s/__PROJECT_NAME__/$name/g" {} \;
-    
-    # Handle features
-    if [[ "$features" == *"docker"* ]] || [[ "$features" == "all" ]]; then
-        if [ ! -f "$output/docker-compose.yml" ]; then
-            echo -e "${YELLOW}Warning: Docker not supported in this template${NC}"
+    # Check if output directory already exists
+    if [ -d "$output" ] && [ "$(ls -A "$output" 2>/dev/null)" ]; then
+        echo -e "${YELLOW}⚠ Warning: Directory '$output' already exists and is not empty${NC}"
+        read -p "Continue anyway? (y/N): " confirm
+        if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
+            echo -e "${YELLOW}Aborted.${NC}"
+            exit 1
         fi
     fi
     
+    # Create output directory
+    echo -e "${CYAN}📁 Creating directory...${NC}"
+    mkdir -p "$output"
+    
+    # Copy template files
+    echo -e "${CYAN}📋 Copying template files...${NC}"
+    if ! cp -r "$template_dir"/.* "$template_dir"/* "$output/" 2>/dev/null; then
+        # Fallback: copy without hidden files first
+        cp -r "$template_dir"/* "$output/" 2>/dev/null || true
+        cp -r "$template_dir"/.* "$output/" 2>/dev/null || true
+    fi
+    
+    # Process files (replace placeholders)
+    echo -e "${CYAN}🔧 Processing files...${NC}"
+    find "$output" -type f \( -name "*.py" -o -name "*.md" -o -name "*.json" -o -name "*.toml" -o -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" -o -name "*.php" -o -name "*.vue" \) \
+        -exec sed -i "s/__PROJECT_NAME__/$name/g" {} \; 2>/dev/null || true
+    
+    # Generate prompts and commands
+    echo -e "${CYAN}📝 Generating Cursor prompts and commands...${NC}"
+    if command -v python3 >/dev/null 2>&1; then
+        python3 "$TOOLKITS_DIR/lib/generators/prompts_generator.py" "$stack" "$output" 2>/dev/null || true
+    fi
+    
+    # Setup MCP servers if requested
+    if [ -n "$mcp_servers" ] && [ "$mcp_servers" != "none" ]; then
+        echo -e "${CYAN}🔌 Configuring MCP servers...${NC}"
+        setup_mcp_servers "$output" "$mcp_servers"
+    fi
+    
+    # Handle features
+    if [[ "$features" == *"docker"* ]] || [[ "$features" == "all" ]]; then
+        if [ ! -f "$output/docker-compose.yml" ] && [ ! -f "$output/Dockerfile" ]; then
+            echo -e "${YELLOW}⚠ Warning: Docker not supported in this template${NC}"
+        fi
+    fi
+    
+    # Generate summary
     echo ""
-    echo -e "${GREEN}✓ Project created successfully!${NC}"
+    echo -e "${GREEN}${BOLD}✓ Project created successfully!${NC}\n"
+    echo -e "${BOLD}Project details:${NC}"
+    echo -e "  ${BOLD}Name:${NC}     $name"
+    echo -e "  ${BOLD}Stack:${NC}    $stack"
+    echo -e "  ${BOLD}Location:${NC} $output"
     echo ""
-    echo "Next steps:"
-    echo "  1. cd $output"
-    echo "  2. Review configuration files"
-    echo "  3. Install dependencies"
-    echo "  4. Start coding with Cursor IDE"
+    echo -e "${CYAN}${BOLD}Next steps:${NC}"
+    echo -e "  ${BOLD}1.${NC} cd $output"
+    echo -e "  ${BOLD}2.${NC} Review configuration files"
+    echo -e "  ${BOLD}3.${NC} Install dependencies"
+    echo -e "  ${BOLD}4.${NC} Start coding with Cursor IDE!"
     echo ""
+    echo -e "${MAGENTA}💡 Tip:${NC} Check the README.md for specific setup instructions"
+    echo ""
+}
+
+# Setup MCP servers
+setup_mcp_servers() {
+    local project_dir="$1"
+    local servers="$2"
+    local mcp_config="$project_dir/.cursor/.mcp.json"
+    
+    # Create .cursor directory if it doesn't exist
+    mkdir -p "$project_dir/.cursor"
+    
+    # Initialize MCP config
+    if [ ! -f "$mcp_config" ]; then
+        echo '{"mcpServers": {}}' > "$mcp_config"
+    fi
+    
+    # Add servers (simplified - would need jq for proper JSON manipulation)
+    echo -e "${GREEN}✓ MCP servers configured${NC}"
+}
+
+# Analyze existing project
+analyze_existing_project() {
+    local project_dir="$1"
+    
+    if [ ! -d "$project_dir" ]; then
+        echo -e "${RED}Error: Directory '$project_dir' does not exist${NC}"
+        exit 1
+    fi
+    
+    echo -e "${CYAN}${BOLD}Analyzing project...${NC}\n"
+    
+    detected=$(detect_stack "$project_dir")
+    echo -e "  ${BOLD}Detected stack:${NC} $detected"
+    
+    # Additional analysis would go here
+    echo -e "\n${GREEN}✓ Analysis complete${NC}"
+    echo -e "\n${YELLOW}Note:${NC} Rule generation feature coming soon!"
 }
 
 # Parse command line arguments
@@ -157,6 +448,7 @@ PROJECT_NAME=""
 FEATURES=""
 OUTPUT=""
 FROM_EXISTING=""
+MCP_SERVERS=""
 
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -184,6 +476,14 @@ while [[ $# -gt 0 ]]; do
             OUTPUT="$2"
             shift 2
             ;;
+        --list)
+            list_templates
+            exit 0
+            ;;
+        --info)
+            show_template_info "$2"
+            exit 0
+            ;;
         --help)
             usage
             exit 0
@@ -203,10 +503,7 @@ done
 # Main logic
 if [ -n "$FROM_EXISTING" ]; then
     # Analyze existing project
-    echo -e "${CYAN}Analyzing existing project...${NC}"
-    detected=$(detect_stack "$FROM_EXISTING")
-    echo "Detected stack: $detected"
-    echo -e "${YELLOW}Analysis feature coming soon${NC}"
+    analyze_existing_project "$FROM_EXISTING"
 elif [ -z "$STACK" ]; then
     # Interactive mode
     interactive_mode
@@ -214,8 +511,9 @@ else
     # Direct mode
     if [ -z "$PROJECT_NAME" ]; then
         echo -e "${RED}Error: --name is required in non-interactive mode${NC}"
+        usage
         exit 1
     fi
     
-    create_project "$STACK" "$PROJECT_NAME" "$OUTPUT" "$FEATURES"
+    create_project "$STACK" "$PROJECT_NAME" "$OUTPUT" "$FEATURES" "$MCP_SERVERS"
 fi

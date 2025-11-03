@@ -1,0 +1,19 @@
+{
+  "name": "react-vite-typescript",
+  "version": "1.0.0",
+  "description": "Production-ready React 18 + Vite + TypeScript template with TailwindCSS",
+  "tags": ["#toc-safe", "#production-ready", "#react18", "#vite"],
+  "cursor_version": ">=1.7.0",
+  "token_budget": {
+    "cursorrules": 450,
+    "mcp_config": 200,
+    "total_context": 650
+  },
+  "dependencies": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "mcp_servers": ["github"],
+  "features": ["react18", "vite", "typescript", "tailwind", "vitest"],
+  "last_tested": "2025-01-28"
+}

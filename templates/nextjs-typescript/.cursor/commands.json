@@ -1,0 +1,34 @@
+{
+  "commands": [
+    {
+      "name": "dev",
+      "description": "Start Next.js development server",
+      "command": "npm run dev",
+      "type": "shell"
+    },
+    {
+      "name": "build",
+      "description": "Build Next.js for production",
+      "command": "npm run build",
+      "type": "shell"
+    },
+    {
+      "name": "test",
+      "description": "Run tests with coverage",
+      "command": "npm test -- --coverage",
+      "type": "shell"
+    },
+    {
+      "name": "lint",
+      "description": "Lint code with ESLint",
+      "command": "npm run lint",
+      "type": "shell"
+    },
+    {
+      "name": "type-check",
+      "description": "Run TypeScript type checking",
+      "command": "tsc --noEmit",
+      "type": "shell"
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+# Express.js + TypeScript Development Rules v1.0.0
+
+## Project Context
+- **Stack**: Express.js + TypeScript + Prisma + PostgreSQL
+- **Architecture**: RESTful API with middleware pattern
+- **Node.js**: >=18.0.0
+
+## Code Style
+
+### 1. TypeScript Strict Mode
+- Enable strict mode in tsconfig.json
+- Type all function parameters and return values
+- Use interfaces for request/response types
+- Avoid `any` type
+
+```typescript
+import { Request, Response } from 'express'
+
+interface CreateUserRequest {
+  name: string
+  email: string
+}
+
+export async function createUser(
+  req: Request<{}, {}, CreateUserRequest>,
+  res: Response
+): Promise<void> {
+  // Implementation
+}
+```
+
+### 2. Route Organization
+```
+src/
+├── routes/        # Route handlers
+├── controllers/   # Business logic
+├── services/      # Service layer
+├── middleware/    # Custom middleware
+├── utils/         # Utility functions
+└── types/         # TypeScript types
+```
+
+### 3. Error Handling
+- Use try-catch blocks
+- Create custom error classes
+- Use error middleware for centralized handling
+
+```typescript
+class AppError extends Error {
+  constructor(
+    public statusCode: number,
+    message: string
+  ) {
+    super(message)
+  }
+}
+
+// Error middleware
+app.use((err: AppError, req: Request, res: Response, next: NextFunction) => {
+  res.status(err.statusCode || 500).json({
+    error: err.message
+  })
+})
+```
+
+### 4. Middleware Pattern
+- Use middleware for cross-cutting concerns
+- Chain middleware appropriately
+- Create reusable middleware functions
+
+## Database with Prisma
+
+- Use Prisma Client for database access
+- Write migrations for schema changes
+- Use transactions for complex operations
+
+## Security
+
+- Use Helmet for security headers
+- Validate and sanitize input
+- Use environment variables for secrets
+- Implement rate limiting
+
+## Restrictions
+
+- ❌ No `any` types
+- ❌ No synchronous database operations
+- ❌ No hardcoded secrets
+- ❌ No console.log in production (use logger)
+
+## Testing
+
+- Write unit tests for controllers
+- Write integration tests for routes
+- Use Supertest for API testing
+- Minimum 80% coverage

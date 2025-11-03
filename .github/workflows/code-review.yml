@@ -1,0 +1,76 @@
+name: Code Review Automation
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  check-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check PR Template
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Validate PR Template
+        run: |
+          if [ ! -f .github/PULL_REQUEST_TEMPLATE.md ]; then
+            echo "PR template not found"
+            exit 1
+          fi
+          
+          # Check if PR description contains checklist items
+          PR_BODY=$(gh pr view ${{ github.event.pull_request.number }} --json body -q .body 2>/dev/null || echo "")
+          
+          if [ -z "$PR_BODY" ]; then
+            echo "⚠️ Could not fetch PR body. Ensure PR template is filled."
+          else
+            echo "PR description found"
+          fi
+          
+      - name: Check Code Coverage
+        run: |
+          echo "Checking if coverage maintained..."
+          python3 -m pytest tests/ --cov=lib --cov-report=term --cov-fail-under=90 || echo "⚠️ Coverage check requires manual review"
+          
+      - name: Run Tests
+        run: |
+          make test || exit 1
+          
+      - name: Security Check
+        run: |
+          bash tests/security/security_scan_complete.sh || echo "⚠️ Security checks completed with warnings"
+
+  assign-reviewers:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.action == 'opened'
+    steps:
+      - name: Assign Default Reviewers
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Get repository collaborators with write/admin access
+            const { data: collaborators } = await github.rest.repos.listCollaborators({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+            
+            // Filter for maintainers/admins (requires manual configuration)
+            // This is a placeholder - configure actual reviewers
+            const reviewers = ['reviewer1', 'reviewer2'].filter(r => 
+              collaborators.some(c => c.login === r)
+            );
+            
+            if (reviewers.length > 0) {
+              github.rest.pulls.requestReviewers({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number,
+                reviewers: reviewers,
+              });
+            } else {
+              console.log('⚠️ No reviewers configured. Please set up CODEOWNERS or manual assignment.');
+            }

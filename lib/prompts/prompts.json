@@ -1,0 +1,95 @@
+{
+  "python-fastapi": {
+    "create_endpoint": "Crée un nouvel endpoint FastAPI dans src/app/api/v1/endpoints/ avec les fonctionnalités suivantes :\n- Route RESTful appropriée (GET/POST/PUT/DELETE)\n- Validation avec Pydantic schemas\n- Gestion d'erreurs avec HTTPException\n- Type hints complets\n- Docstring\n- Tests unitaires correspondants",
+    "create_model": "Crée un nouveau modèle SQLAlchemy async dans src/app/models/ avec :\n- Colonnes typées\n- Relations si nécessaire\n- Méthodes utilitaires\n- Créer aussi le schema Pydantic correspondant dans src/app/schemas/",
+    "create_service": "Crée un nouveau service dans src/app/services/ pour la logique métier avec :\n- Méthodes async\n- Type hints\n- Gestion d'erreurs\n- Tests unitaires avec mocks",
+    "add_middleware": "Ajoute un middleware FastAPI pour [FONCTIONNALITÉ] avec :\n- Gestion async\n- Headers appropriés\n- Logging\n- Tests",
+    "create_migration": "Crée une migration Alembic pour [DESCRIPTION] avec :\n- Modifications de schéma\n- Données de seed si nécessaire\n- Rollback approprié",
+    "optimize_query": "Optimise cette requête SQLAlchemy pour réduire les N+1 queries :\n[CODE]\nUtilise selectinload ou joinedload quand approprié",
+    "add_authentication": "Ajoute l'authentification JWT à cet endpoint avec :\n- Token generation\n- Token validation\n- Refresh token\n- Protection des routes avec Depends"
+  },
+  "nextjs-typescript": {
+    "create_page": "Crée une nouvelle page Next.js dans app/ avec :\n- Server Component par défaut\n- TypeScript strict\n- Metadata appropriée\n- Layout si nécessaire\n- Tests",
+    "create_component": "Crée un composant React réutilisable dans components/ avec :\n- TypeScript avec interfaces pour props\n- Server Component si possible\n- Styles TailwindCSS\n- Tests avec React Testing Library",
+    "create_api_route": "Crée une route API Next.js dans app/api/ avec :\n- Handler async\n- Validation des requêtes\n- Gestion d'erreurs\n- Type safety\n- Tests",
+    "create_client_component": "Crée un Client Component avec 'use client' pour [FONCTIONNALITÉ] avec :\n- Hooks React appropriés\n- Gestion d'état\n- Types TypeScript\n- Tests",
+    "add_form": "Crée un formulaire avec validation pour [OBJET] en utilisant :\n- React Hook Form\n- Zod pour validation\n- TailwindCSS pour styles\n- Gestion d'erreurs",
+    "optimize_seo": "Optimise le SEO de cette page avec :\n- Metadata complète\n- Open Graph tags\n- Structured data\n- Sitemap si nécessaire"
+  },
+  "react-vite": {
+    "create_component": "Crée un composant React dans components/ avec :\n- Composition API avec hooks\n- TypeScript strict\n- Props typées avec interface\n- Styles TailwindCSS\n- Tests avec Vitest",
+    "create_hook": "Crée un custom hook dans hooks/ pour [FONCTIONNALITÉ] avec :\n- TypeScript types\n- Gestion d'erreurs\n- Tests\n- Documentation",
+    "create_context": "Crée un Context API pour [CONTEXTE] avec :\n- Provider component\n- Custom hook pour utiliser le contexte\n- TypeScript types\n- Tests",
+    "add_state_management": "Ajoute la gestion d'état pour [FEATURE] en utilisant :\n- useState pour état local\n- useReducer pour état complexe\n- Context API si nécessaire\n- Tests complets"
+  },
+  "express-typescript": {
+    "create_route": "Crée une nouvelle route Express dans src/routes/ avec :\n- Controller dans src/controllers/\n- Service dans src/services/\n- Validation avec middleware\n- Types TypeScript\n- Tests avec Supertest",
+    "create_middleware": "Crée un middleware Express pour [FONCTIONNALITÉ] avec :\n- Types TypeScript\n- Gestion d'erreurs\n- Logging\n- Tests",
+    "add_prisma_model": "Ajoute un modèle Prisma dans schema.prisma avec :\n- Champs typés\n- Relations\n- Indexes si nécessaire\n- Migration correspondante",
+    "create_service": "Crée un service dans src/services/ pour [FONCTIONNALITÉ] avec :\n- Méthodes async\n- Prisma Client\n- Gestion d'erreurs\n- Tests avec mocks"
+  },
+  "nestjs": {
+    "create_module": "Crée un module NestJS complet pour [FEATURE] avec :\n- Module dans src/modules/[feature]/\n- Controller avec routes\n- Service avec logique métier\n- Entity avec TypeORM\n- DTOs pour validation\n- Tests",
+    "create_guard": "Crée un Guard NestJS pour [FONCTIONNALITÉ] avec :\n- CanActivate implementation\n- Gestion d'erreurs\n- Tests",
+    "create_interceptor": "Crée un Interceptor NestJS pour [FONCTIONNALITÉ] avec :\n- Transformation de données\n- Logging\n- Tests",
+    "add_entity": "Ajoute une Entity TypeORM dans src/modules/[feature]/entities/ avec :\n- Colonnes typées\n- Relations\n- Indexes\n- Migration"
+  },
+  "symfony-api": {
+    "create_controller": "Crée un Controller Symfony dans src/Controller/ pour [RESOURCE] avec :\n- Routes API RESTful\n- Actions CRUD complètes\n- Serialization groups\n- Validation\n- Tests PHPUnit",
+    "create_entity": "Crée une Entity Doctrine dans src/Entity/ avec :\n- Propriétés typées\n- Relations\n- Repository personnalisé si nécessaire\n- Migration",
+    "create_service": "Crée un Service Symfony dans src/Service/ pour [FONCTIONNALITÉ] avec :\n- Injection de dépendances\n- Gestion d'erreurs\n- Tests unitaires",
+    "create_form": "Crée un FormType Symfony pour [ENTITÉ] avec :\n- Champs typés\n- Validation\n- Options appropriées"
+  },
+  "vue3": {
+    "create_component": "Crée un composant Vue 3 dans components/ avec :\n- Composition API avec <script setup>\n- TypeScript strict\n- Props typées\n- Styles TailwindCSS\n- Tests avec Vitest",
+    "create_composable": "Crée un composable dans composables/ pour [FONCTIONNALITÉ] avec :\n- TypeScript types\n- Reactive state\n- Tests\n- Documentation",
+    "create_store": "Crée un store Pinia pour [DOMAINE] avec :\n- State typé\n- Actions\n- Getters\n- Tests"
+  },
+  "python-django": {
+    "create_view": "Crée une View Django REST Framework dans views.py avec :\n- ViewSet ou APIView appropriée\n- Permissions\n- Serializers\n- Tests",
+    "create_model": "Crée un modèle Django dans models.py avec :\n- Champs typés\n- Relations\n- Méthodes\n- Migration",
+    "create_serializer": "Crée un Serializer DRF dans serializers.py pour [MODEL] avec :\n- Champs appropriés\n- Validation\n- Méthodes custom si nécessaire",
+    "create_url": "Crée les URLs Django pour [APP] avec :\n- Router DRF si ViewSet\n- URL patterns appropriés\n- Namespace si nécessaire",
+    "create_migration": "Crée une migration Django pour [DESCRIPTION] avec :\n- python manage.py makemigrations\n- Modifications de schéma\n- Données de seed si nécessaire"
+  },
+  "t3-stack": {
+    "create_trpc_router": "Crée un router tRPC dans server/api/routers/ avec :\n- Procedures typées\n- Validation avec Zod\n- Error handling\n- Tests",
+    "create_prisma_model": "Ajoute un modèle Prisma dans schema.prisma avec :\n- Champs typés\n- Relations\n- Indexes\n- Migration",
+    "create_next_page": "Crée une page Next.js avec tRPC dans app/ avec :\n- Server Component\n- Appel tRPC avec useQuery\n- Types automatiques\n- Loading/Error states",
+    "create_api_procedure": "Crée une nouvelle procedure tRPC pour [ACTION] avec :\n- Input validation Zod\n- Business logic\n- Error handling\n- Type safety"
+  },
+  "php-api": {
+    "create_route": "Crée une route Slim Framework dans routes/ ou dans un Route Group avec :\n- Méthode HTTP appropriée\n- Controller dans src/Controllers/\n- Validation\n- Response JSON",
+    "create_controller": "Crée un Controller Slim dans src/Controllers/ pour [RESOURCE] avec :\n- Actions CRUD\n- Dependency Injection\n- Response helpers\n- Tests",
+    "create_middleware": "Crée un Middleware Slim pour [FONCTIONNALITÉ] avec :\n- Request/Response handling\n- Error handling\n- Tests",
+    "create_service": "Crée un Service dans src/Services/ pour [FONCTIONNALITÉ] avec :\n- Logique métier\n- Dependency Injection\n- Tests unitaires"
+  },
+  "bash-script": {
+    "create_function": "Crée une fonction Bash dans lib/ avec :\n- Validation des paramètres\n- Gestion d'erreurs avec set -e\n- Documentation inline\n- Tests BATS correspondants",
+    "create_script": "Crée un script Bash dans bin/ avec :\n- set -euo pipefail\n- Gestion d'erreurs\n- Logging coloré\n- Options CLI avec getopts\n- Tests",
+    "add_error_handling": "Ajoute la gestion d'erreurs robuste à ce script avec :\n- trap pour cleanup\n- Validation des inputs\n- Messages d'erreur clairs\n- Codes de retour appropriés",
+    "create_logger": "Crée des fonctions de logging dans lib/logger.sh avec :\n- Niveaux DEBUG, INFO, WARN, ERROR\n- Couleurs appropriées\n- Sortie vers stderr pour erreurs\n- Format cohérent"
+  },
+  "docker": {
+    "create_dockerfile": "Crée un Dockerfile multi-stage pour [APPLICATION] avec :\n- Stage de build optimisé\n- Stage de production minimal\n- Health checks\n- User non-root\n- .dockerignore approprié",
+    "create_compose": "Crée un docker-compose.yml pour [SERVICES] avec :\n- Services nécessaires\n- Réseaux configurés\n- Volumes pour données persistantes\n- Health checks\n- Variables d'environnement",
+    "optimize_build": "Optimise ce Dockerfile pour :\n- Réduire la taille de l'image\n- Améliorer le cache\n- Réduire les layers\n- Utiliser multi-stage builds",
+    "add_healthcheck": "Ajoute un health check Docker pour [SERVICE] avec :\n- Commande de vérification appropriée\n- Intervalle, timeout, retries configurés\n- Start period si nécessaire"
+  },
+  "go": {
+    "create_handler": "Crée un handler HTTP dans handlers/ pour [ENDPOINT] avec :\n- Méthode HTTP appropriée\n- Validation des paramètres\n- Gestion d'erreurs\n- Tests unitaires",
+    "create_service": "Crée un service dans services/ pour [FONCTIONNALITÉ] avec :\n- Interface définie\n- Implémentation\n- Gestion d'erreurs\n- Tests avec mocks",
+    "create_middleware": "Crée un middleware HTTP pour [FONCTIONNALITÉ] avec :\n- Signature http.Handler\n- Gestion d'erreurs\n- Logging\n- Tests",
+    "add_test": "Ajoute des tests pour [PACKAGE] avec :\n- Table-driven tests\n- Cas de succès et d'erreur\n- Mocks si nécessaire\n- Couverture appropriée"
+  },
+  "rust": {
+    "create_handler": "Crée un handler pour [ENDPOINT] avec :\n- Type Request/Response approprié\n- Validation avec serde\n- Gestion d'erreurs avec Result\n- Tests unitaires",
+    "create_module": "Crée un module Rust dans src/ pour [FONCTIONNALITÉ] avec :\n- Structures typées\n- Impl blocks\n- Gestion d'erreurs\n- Documentation rustdoc\n- Tests",
+    "add_error_type": "Crée un type d'erreur personnalisé avec :\n- Enum pour types d'erreurs\n- Impl Display et Error\n- Conversions avec From\n- Tests"
+  },
+  "ruby": {
+    "create_controller": "Crée un Controller dans app/controllers/ pour [RESOURCE] avec :\n- Actions CRUD\n- Strong parameters\n- Gestion d'erreurs\n- Tests RSpec",
+    "create_service": "Crée un Service Object dans app/services/ pour [FONCTIONNALITÉ] avec :\n- Méthode call\n- Gestion d'erreurs\n- Tests unitaires",
+    "create_model": "Crée un modèle ActiveRecord dans app/models/ avec :\n- Validations\n- Associations\n- Scopes\n- Callbacks si nécessaire\n- Tests"
+  }
+}

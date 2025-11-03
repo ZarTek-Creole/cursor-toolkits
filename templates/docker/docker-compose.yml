@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: __PROJECT_NAME__
+    ports:
+      - "8000:8000"
+    environment:
+      - NODE_ENV=production
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:8000/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  # Add more services as needed
+  # postgres:
+  #   image: postgres:15-alpine
+  #   environment:
+  #     POSTGRES_DB: ${POSTGRES_DB:-app}
+  #     POSTGRES_USER: ${POSTGRES_USER:-user}
+  #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+  #   volumes:
+  #     - postgres-data:/var/lib/postgresql/data
+  #   networks:
+  #     - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  # postgres-data:

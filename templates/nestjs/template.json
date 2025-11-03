@@ -1,0 +1,19 @@
+{
+  "name": "nestjs-api",
+  "version": "1.0.0",
+  "description": "Production-ready NestJS API with TypeScript, PostgreSQL, and testing",
+  "tags": ["#toc-safe", "#production-ready", "#nestjs", "#typescript"],
+  "cursor_version": ">=1.7.0",
+  "token_budget": {
+    "cursorrules": 500,
+    "mcp_config": 200,
+    "total_context": 700
+  },
+  "dependencies": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "mcp_servers": ["postgres", "github"],
+  "features": ["nestjs", "typescript", "postgresql", "jest", "docker"],
+  "last_tested": "2025-01-28"
+}

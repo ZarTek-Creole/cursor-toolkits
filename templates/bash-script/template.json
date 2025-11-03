@@ -1,0 +1,18 @@
+{
+  "name": "bash-script",
+  "version": "1.0.0",
+  "description": "Production-ready Bash scripting template with best practices, error handling, and testing",
+  "tags": ["#shell", "#bash", "#automation", "#devops"],
+  "cursor_version": ">=1.7.0",
+  "token_budget": {
+    "cursorrules": 400,
+    "mcp_config": 150,
+    "total_context": 550
+  },
+  "dependencies": {
+    "bash": ">=4.0"
+  },
+  "mcp_servers": ["github"],
+  "features": ["error-handling", "logging", "testing", "functions", "colored-output"],
+  "last_tested": "2025-01-28"
+}

@@ -1,0 +1,24 @@
+{
+  "prompts": [
+    {
+      "name": "create_route",
+      "prompt": "Crée une nouvelle route Express dans src/routes/ avec :\n- Controller dans src/controllers/\n- Service dans src/services/\n- Validation avec middleware\n- Types TypeScript\n- Tests avec Supertest",
+      "category": "development"
+    },
+    {
+      "name": "create_middleware",
+      "prompt": "Crée un middleware Express pour [FONCTIONNALITÉ] avec :\n- Types TypeScript\n- Gestion d'erreurs\n- Logging\n- Tests",
+      "category": "development"
+    },
+    {
+      "name": "add_prisma_model",
+      "prompt": "Ajoute un modèle Prisma dans schema.prisma avec :\n- Champs typés\n- Relations\n- Indexes si nécessaire\n- Migration correspondante",
+      "category": "development"
+    },
+    {
+      "name": "create_service",
+      "prompt": "Crée un service dans src/services/ pour [FONCTIONNALITÉ] avec :\n- Méthodes async\n- Prisma Client\n- Gestion d'erreurs\n- Tests avec mocks",
+      "category": "development"
+    }
+  ]
+}

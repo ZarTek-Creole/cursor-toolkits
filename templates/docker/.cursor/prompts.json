@@ -1,0 +1,24 @@
+{
+  "prompts": [
+    {
+      "name": "create_dockerfile",
+      "prompt": "Crée un Dockerfile multi-stage pour [APPLICATION] avec :\n- Stage de build optimisé\n- Stage de production minimal\n- Health checks\n- User non-root\n- .dockerignore approprié",
+      "category": "development"
+    },
+    {
+      "name": "create_compose",
+      "prompt": "Crée un docker-compose.yml pour [SERVICES] avec :\n- Services nécessaires\n- Réseaux configurés\n- Volumes pour données persistantes\n- Health checks\n- Variables d'environnement",
+      "category": "development"
+    },
+    {
+      "name": "optimize_build",
+      "prompt": "Optimise ce Dockerfile pour :\n- Réduire la taille de l'image\n- Améliorer le cache\n- Réduire les layers\n- Utiliser multi-stage builds",
+      "category": "development"
+    },
+    {
+      "name": "add_healthcheck",
+      "prompt": "Ajoute un health check Docker pour [SERVICE] avec :\n- Commande de vérification appropriée\n- Intervalle, timeout, retries configurés\n- Start period si nécessaire",
+      "category": "development"
+    }
+  ]
+}

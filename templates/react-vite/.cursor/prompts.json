@@ -1,0 +1,24 @@
+{
+  "prompts": [
+    {
+      "name": "create_component",
+      "prompt": "Crée un composant React dans components/ avec :\n- Composition API avec hooks\n- TypeScript strict\n- Props typées avec interface\n- Styles TailwindCSS\n- Tests avec Vitest",
+      "category": "development"
+    },
+    {
+      "name": "create_hook",
+      "prompt": "Crée un custom hook dans hooks/ pour [FONCTIONNALITÉ] avec :\n- TypeScript types\n- Gestion d'erreurs\n- Tests\n- Documentation",
+      "category": "development"
+    },
+    {
+      "name": "create_context",
+      "prompt": "Crée un Context API pour [CONTEXTE] avec :\n- Provider component\n- Custom hook pour utiliser le contexte\n- TypeScript types\n- Tests",
+      "category": "development"
+    },
+    {
+      "name": "add_state_management",
+      "prompt": "Ajoute la gestion d'état pour [FEATURE] en utilisant :\n- useState pour état local\n- useReducer pour état complexe\n- Context API si nécessaire\n- Tests complets",
+      "category": "development"
+    }
+  ]
+}

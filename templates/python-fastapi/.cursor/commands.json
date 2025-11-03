@@ -1,0 +1,41 @@
+{
+  "commands": [
+    {
+      "name": "run-tests",
+      "description": "Run all tests with coverage",
+      "command": "pytest --cov=src --cov-report=term --cov-report=html",
+      "type": "shell"
+    },
+    {
+      "name": "start-dev",
+      "description": "Start FastAPI development server",
+      "command": "uvicorn src.app.main:app --reload",
+      "type": "shell"
+    },
+    {
+      "name": "format-code",
+      "description": "Format code with ruff",
+      "command": "ruff format src",
+      "type": "shell"
+    },
+    {
+      "name": "lint-code",
+      "description": "Lint code with ruff",
+      "command": "ruff check src",
+      "type": "shell"
+    },
+    {
+      "name": "create-migration",
+      "description": "Create Alembic migration",
+      "command": "alembic revision --autogenerate -m",
+      "type": "shell",
+      "prompt": "Enter migration message:"
+    },
+    {
+      "name": "run-migration",
+      "description": "Run database migrations",
+      "command": "alembic upgrade head",
+      "type": "shell"
+    }
+  ]
+}

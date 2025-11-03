@@ -20,8 +20,16 @@ class ApiController extends AbstractController
     #[Route('/items', methods: ['GET'])]
     public function listItems(): JsonResponse
     {
-        // TODO: Implement actual logic
-        return new JsonResponse(['items' => []]);
+        // Example implementation: In a real application, inject EntityManagerInterface
+        // and query the database using Doctrine ORM
+        // $items = $this->entityManager->getRepository(Item::class)->findAll();
+        
+        // For now, return empty array as template placeholder
+        // Replace this with actual database query when implementing your domain logic
+        return new JsonResponse([
+            'items' => [],
+            'message' => 'Items endpoint - implement database query in production'
+        ]);
     }
 }
 
