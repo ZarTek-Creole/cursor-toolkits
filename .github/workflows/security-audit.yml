@@ -1,0 +1,100 @@
+name: Security Audit
+
+on:
+  schedule:
+    # Run weekly on Monday at 9 AM UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'package.json'
+      - '**/pyproject.toml'
+      - '**/composer.json'
+
+jobs:
+  audit-node:
+    name: Audit Node.js Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run npm audit
+        run: npm audit --audit-level=moderate
+        continue-on-error: true
+      
+      - name: Upload audit results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-audit-results
+          path: npm-audit.json
+
+  audit-python:
+    name: Audit Python Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install safety
+        run: pip install safety
+      
+      - name: Run safety check
+        run: |
+          cd templates/python-fastapi
+          if [ -f pyproject.toml ]; then
+            poetry export -f requirements.txt --without-hashes -o requirements.txt || true
+            safety check --file requirements.txt || true
+          fi
+        continue-on-error: true
+
+  audit-php:
+    name: Audit PHP Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+      
+      - name: Install Composer
+        uses: php-actions/composer@v1
+      
+      - name: Run composer audit
+        run: |
+          cd templates/symfony-api
+          if [ -f composer.json ]; then
+            composer audit || true
+          fi
+        continue-on-error: true
+
+  secret-scan:
+    name: Secret Scanning
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true

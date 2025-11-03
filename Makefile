@@ -110,3 +110,8 @@ check-deps: ## Check dependencies for all templates
 list-templates: ## List all available templates
 	@echo "$(CYAN)$(BOLD)Available Templates:$(NC)"
 	@ls -1 templates/ | grep -v "^sym sales-api" | sed 's/^/  • /'
+
+complexity: ## Analyze code complexity
+	@echo "$(CYAN)$(BOLD)Analyzing code complexity...$(NC)"
+	@bash scripts/complexity-analysis.sh || exit 1
+	@echo "$(GREEN)✓ Complexity analysis complete$(NC)"
