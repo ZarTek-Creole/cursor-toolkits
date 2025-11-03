@@ -63,5 +63,33 @@
     "create_controller": "Crée un Controller Slim dans src/Controllers/ pour [RESOURCE] avec :\n- Actions CRUD\n- Dependency Injection\n- Response helpers\n- Tests",
     "create_middleware": "Crée un Middleware Slim pour [FONCTIONNALITÉ] avec :\n- Request/Response handling\n- Error handling\n- Tests",
     "create_service": "Crée un Service dans src/Services/ pour [FONCTIONNALITÉ] avec :\n- Logique métier\n- Dependency Injection\n- Tests unitaires"
+  },
+  "bash-script": {
+    "create_function": "Crée une fonction Bash dans lib/ avec :\n- Validation des paramètres\n- Gestion d'erreurs avec set -e\n- Documentation inline\n- Tests BATS correspondants",
+    "create_script": "Crée un script Bash dans bin/ avec :\n- set -euo pipefail\n- Gestion d'erreurs\n- Logging coloré\n- Options CLI avec getopts\n- Tests",
+    "add_error_handling": "Ajoute la gestion d'erreurs robuste à ce script avec :\n- trap pour cleanup\n- Validation des inputs\n- Messages d'erreur clairs\n- Codes de retour appropriés",
+    "create_logger": "Crée des fonctions de logging dans lib/logger.sh avec :\n- Niveaux DEBUG, INFO, WARN, ERROR\n- Couleurs appropriées\n- Sortie vers stderr pour erreurs\n- Format cohérent"
+  },
+  "docker": {
+    "create_dockerfile": "Crée un Dockerfile multi-stage pour [APPLICATION] avec :\n- Stage de build optimisé\n- Stage de production minimal\n- Health checks\n- User non-root\n- .dockerignore approprié",
+    "create_compose": "Crée un docker-compose.yml pour [SERVICES] avec :\n- Services nécessaires\n- Réseaux configurés\n- Volumes pour données persistantes\n- Health checks\n- Variables d'environnement",
+    "optimize_build": "Optimise ce Dockerfile pour :\n- Réduire la taille de l'image\n- Améliorer le cache\n- Réduire les layers\n- Utiliser multi-stage builds",
+    "add_healthcheck": "Ajoute un health check Docker pour [SERVICE] avec :\n- Commande de vérification appropriée\n- Intervalle, timeout, retries configurés\n- Start period si nécessaire"
+  },
+  "go": {
+    "create_handler": "Crée un handler HTTP dans handlers/ pour [ENDPOINT] avec :\n- Méthode HTTP appropriée\n- Validation des paramètres\n- Gestion d'erreurs\n- Tests unitaires",
+    "create_service": "Crée un service dans services/ pour [FONCTIONNALITÉ] avec :\n- Interface définie\n- Implémentation\n- Gestion d'erreurs\n- Tests avec mocks",
+    "create_middleware": "Crée un middleware HTTP pour [FONCTIONNALITÉ] avec :\n- Signature http.Handler\n- Gestion d'erreurs\n- Logging\n- Tests",
+    "add_test": "Ajoute des tests pour [PACKAGE] avec :\n- Table-driven tests\n- Cas de succès et d'erreur\n- Mocks si nécessaire\n- Couverture appropriée"
+  },
+  "rust": {
+    "create_handler": "Crée un handler pour [ENDPOINT] avec :\n- Type Request/Response approprié\n- Validation avec serde\n- Gestion d'erreurs avec Result\n- Tests unitaires",
+    "create_module": "Crée un module Rust dans src/ pour [FONCTIONNALITÉ] avec :\n- Structures typées\n- Impl blocks\n- Gestion d'erreurs\n- Documentation rustdoc\n- Tests",
+    "add_error_type": "Crée un type d'erreur personnalisé avec :\n- Enum pour types d'erreurs\n- Impl Display et Error\n- Conversions avec From\n- Tests"
+  },
+  "ruby": {
+    "create_controller": "Crée un Controller dans app/controllers/ pour [RESOURCE] avec :\n- Actions CRUD\n- Strong parameters\n- Gestion d'erreurs\n- Tests RSpec",
+    "create_service": "Crée un Service Object dans app/services/ pour [FONCTIONNALITÉ] avec :\n- Méthode call\n- Gestion d'erreurs\n- Tests unitaires",
+    "create_model": "Crée un modèle ActiveRecord dans app/models/ avec :\n- Validations\n- Associations\n- Scopes\n- Callbacks si nécessaire\n- Tests"
   }
 }

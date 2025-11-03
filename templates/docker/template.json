@@ -1,0 +1,19 @@
+{
+  "name": "docker",
+  "version": "1.0.0",
+  "description": "Production-ready Docker template with multi-stage builds, Docker Compose, and best practices",
+  "tags": ["#docker", "#containers", "#devops", "#ci-cd"],
+  "cursor_version": ">=1.7.0",
+  "token_budget": {
+    "cursorrules": 400,
+    "mcp_config": 150,
+    "total_context": 550
+  },
+  "dependencies": {
+    "docker": ">=20.10",
+    "docker-compose": ">=2.0"
+  },
+  "mcp_servers": ["github"],
+  "features": ["multi-stage", "docker-compose", "healthchecks", "secrets", "networking"],
+  "last_tested": "2025-01-28"
+}

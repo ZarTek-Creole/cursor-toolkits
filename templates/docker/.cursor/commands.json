@@ -1,0 +1,40 @@
+{
+  "commands": [
+    {
+      "name": "build",
+      "description": "Build Docker image",
+      "command": "docker build -t __PROJECT_NAME__ .",
+      "type": "shell"
+    },
+    {
+      "name": "run",
+      "description": "Run Docker container",
+      "command": "docker run -p 8000:8000 __PROJECT_NAME__",
+      "type": "shell"
+    },
+    {
+      "name": "compose-up",
+      "description": "Start services with Docker Compose",
+      "command": "docker-compose up -d",
+      "type": "shell"
+    },
+    {
+      "name": "compose-down",
+      "description": "Stop services with Docker Compose",
+      "command": "docker-compose down",
+      "type": "shell"
+    },
+    {
+      "name": "compose-logs",
+      "description": "View Docker Compose logs",
+      "command": "docker-compose logs -f",
+      "type": "shell"
+    },
+    {
+      "name": "scan",
+      "description": "Scan image for vulnerabilities",
+      "command": "docker scan __PROJECT_NAME__",
+      "type": "shell"
+    }
+  ]
+}

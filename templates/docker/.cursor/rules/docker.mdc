@@ -1,0 +1,44 @@
+# Docker Rules
+
+## Dockerfile Best Practices
+
+- Use multi-stage builds to reduce image size
+- Minimize layers (combine RUN commands)
+- Use specific tags, avoid `latest`
+- Use `.dockerignore` to exclude files
+- Run as non-root user when possible
+- Use health checks for services
+- Set appropriate WORKDIR
+- Use COPY instead of ADD
+
+## Multi-stage Builds
+
+- Separate build and runtime stages
+- Copy only necessary artifacts
+- Use smaller base images for production
+- Cache dependencies separately from code
+
+## Security
+
+- Scan images for vulnerabilities
+- Use minimal base images (alpine)
+- Don't store secrets in images
+- Use secrets management
+- Keep images updated
+
+## Docker Compose
+
+- Use version 3.8+
+- Define networks explicitly
+- Use volumes for persistent data
+- Configure health checks
+- Set restart policies
+- Use environment files for config
+
+## Optimization
+
+- Leverage build cache
+- Order instructions from least to most frequently changing
+- Use .dockerignore
+- Minimize image layers
+- Use multi-stage builds

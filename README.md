@@ -64,6 +64,9 @@ cursor-init --info python-fastapi
 | **nestjs** | NestJS + TypeScript + PostgreSQL | Modular, TypeORM, Tests |
 | **symfony-api** | Symfony 7 + Doctrine ORM 3 | API Platform, Messenger, Tests |
 | **php-api** | PHP 8.3 + Slim Framework | REST API, Composer, Tests |
+| **go** | Go HTTP Server | Standard library, Testing |
+| **rust** | Rust Web Server | Actix/Axum, Serde, Tests |
+| **ruby** | Ruby on Rails | ActiveRecord, RSpec, Tests |
 
 ### 🎨 Frontend
 
@@ -78,6 +81,13 @@ cursor-init --info python-fastapi
 | Template | Stack | Features |
 |----------|-------|----------|
 | **t3-stack** | Next.js + tRPC + Prisma + TailwindCSS | Type-safe, Full-stack, Tests |
+
+### 🛠️ DevOps & Tools
+
+| Template | Stack | Features |
+|----------|-------|----------|
+| **docker** | Docker + Docker Compose | Multi-stage, Health checks, Networking |
+| **bash-script** | Bash Scripting | Error handling, Logging, BATS tests |
 
 ## ✨ Fonctionnalités
 

@@ -1,0 +1,28 @@
+{
+  "commands": [
+    {
+      "name": "run-script",
+      "description": "Run main script",
+      "command": "./bin/main.sh",
+      "type": "shell"
+    },
+    {
+      "name": "test",
+      "description": "Run BATS tests",
+      "command": "bats tests/",
+      "type": "shell"
+    },
+    {
+      "name": "lint",
+      "description": "Lint Bash scripts with shellcheck",
+      "command": "shellcheck bin/*.sh lib/*.sh",
+      "type": "shell"
+    },
+    {
+      "name": "check-syntax",
+      "description": "Check Bash syntax",
+      "command": "bash -n bin/*.sh lib/*.sh",
+      "type": "shell"
+    }
+  ]
+}

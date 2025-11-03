@@ -374,5 +374,188 @@
         "type": "shell"
       }
     ]
+  },
+  "bash-script": {
+    "commands": [
+      {
+        "name": "run-script",
+        "description": "Run main script",
+        "command": "./bin/main.sh",
+        "type": "shell"
+      },
+      {
+        "name": "test",
+        "description": "Run BATS tests",
+        "command": "bats tests/",
+        "type": "shell"
+      },
+      {
+        "name": "lint",
+        "description": "Lint Bash scripts with shellcheck",
+        "command": "shellcheck bin/*.sh lib/*.sh",
+        "type": "shell"
+      },
+      {
+        "name": "check-syntax",
+        "description": "Check Bash syntax",
+        "command": "bash -n bin/*.sh lib/*.sh",
+        "type": "shell"
+      }
+    ]
+  },
+  "docker": {
+    "commands": [
+      {
+        "name": "build",
+        "description": "Build Docker image",
+        "command": "docker build -t __PROJECT_NAME__ .",
+        "type": "shell"
+      },
+      {
+        "name": "run",
+        "description": "Run Docker container",
+        "command": "docker run -p 8000:8000 __PROJECT_NAME__",
+        "type": "shell"
+      },
+      {
+        "name": "compose-up",
+        "description": "Start services with Docker Compose",
+        "command": "docker-compose up -d",
+        "type": "shell"
+      },
+      {
+        "name": "compose-down",
+        "description": "Stop services with Docker Compose",
+        "command": "docker-compose down",
+        "type": "shell"
+      },
+      {
+        "name": "compose-logs",
+        "description": "View Docker Compose logs",
+        "command": "docker-compose logs -f",
+        "type": "shell"
+      },
+      {
+        "name": "scan",
+        "description": "Scan image for vulnerabilities",
+        "command": "docker scan __PROJECT_NAME__",
+        "type": "shell"
+      }
+    ]
+  },
+  "go": {
+    "commands": [
+      {
+        "name": "run",
+        "description": "Run Go application",
+        "command": "go run main.go",
+        "type": "shell"
+      },
+      {
+        "name": "build",
+        "description": "Build Go application",
+        "command": "go build -o bin/app",
+        "type": "shell"
+      },
+      {
+        "name": "test",
+        "description": "Run Go tests",
+        "command": "go test ./...",
+        "type": "shell"
+      },
+      {
+        "name": "test-coverage",
+        "description": "Run tests with coverage",
+        "command": "go test -cover ./...",
+        "type": "shell"
+      },
+      {
+        "name": "lint",
+        "description": "Lint Go code",
+        "command": "golangci-lint run",
+        "type": "shell"
+      },
+      {
+        "name": "fmt",
+        "description": "Format Go code",
+        "command": "go fmt ./...",
+        "type": "shell"
+      }
+    ]
+  },
+  "rust": {
+    "commands": [
+      {
+        "name": "run",
+        "description": "Run Rust application",
+        "command": "cargo run",
+        "type": "shell"
+      },
+      {
+        "name": "build",
+        "description": "Build Rust application",
+        "command": "cargo build --release",
+        "type": "shell"
+      },
+      {
+        "name": "test",
+        "description": "Run Rust tests",
+        "command": "cargo test",
+        "type": "shell"
+      },
+      {
+        "name": "check",
+        "description": "Check Rust code",
+        "command": "cargo check",
+        "type": "shell"
+      },
+      {
+        "name": "clippy",
+        "description": "Run Clippy linter",
+        "command": "cargo clippy",
+        "type": "shell"
+      },
+      {
+        "name": "fmt",
+        "description": "Format Rust code",
+        "command": "cargo fmt",
+        "type": "shell"
+      }
+    ]
+  },
+  "ruby": {
+    "commands": [
+      {
+        "name": "server",
+        "description": "Start Rails server",
+        "command": "rails server",
+        "type": "shell"
+      },
+      {
+        "name": "console",
+        "description": "Open Rails console",
+        "command": "rails console",
+        "type": "shell"
+      },
+      {
+        "name": "test",
+        "description": "Run RSpec tests",
+        "command": "rspec",
+        "type": "shell"
+      },
+      {
+        "name": "migrate",
+        "description": "Run database migrations",
+        "command": "rails db:migrate",
+        "type": "shell"
+      },
+      {
+        "name": "generate",
+        "description": "Generate Rails component",
+        "command": "rails generate",
+        "type": "shell",
+        "prompt": "Enter generator name:"
+      }
+    ]
   }
 }

@@ -217,18 +217,25 @@ interactive_mode() {
     echo "  ${BOLD}3)${NC} express-typescript - Express.js + TypeScript"
     echo "  ${BOLD}4)${NC} nestjs            - NestJS + TypeScript"
     echo "  ${BOLD}5)${NC} symfony-api       - Symfony 7"
+    echo "  ${BOLD}6)${NC} go                - Go HTTP Server"
+    echo "  ${BOLD}7)${NC} rust              - Rust Web Server"
+    echo "  ${BOLD}8)${NC} ruby              - Ruby on Rails"
     echo ""
     echo -e "${GREEN}Frontend:${NC}"
-    echo "  ${BOLD}6)${NC} nextjs-typescript  - Next.js 14 + TypeScript"
-    echo "  ${BOLD}7)${NC} react-vite         - React 18 + Vite"
-    echo "  ${BOLD}8)${NC} vue3               - Vue 3 + Vite"
+    echo "  ${BOLD}9)${NC} nextjs-typescript  - Next.js 14 + TypeScript"
+    echo "  ${BOLD}10)${NC} react-vite         - React 18 + Vite"
+    echo "  ${BOLD}11)${NC} vue3               - Vue 3 + Vite"
     echo ""
     echo -e "${GREEN}Full Stack:${NC}"
-    echo "  ${BOLD}9)${NC} t3-stack          - Next.js + tRPC + Prisma"
+    echo "  ${BOLD}12)${NC} t3-stack          - Next.js + tRPC + Prisma"
+    echo ""
+    echo -e "${GREEN}DevOps & Tools:${NC}"
+    echo "  ${BOLD}13)${NC} docker            - Docker + Docker Compose"
+    echo "  ${BOLD}14)${NC} bash-script       - Bash Scripting"
     echo ""
     
     while true; do
-        read -p "$(echo -e ${CYAN}Select stack (1-9): ${NC})" STACK_CHOICE
+        read -p "$(echo -e ${CYAN}Select stack (1-14): ${NC})" STACK_CHOICE
         
         case $STACK_CHOICE in
             1) STACK="python-fastapi"; break ;;
@@ -236,11 +243,16 @@ interactive_mode() {
             3) STACK="express-typescript"; break ;;
             4) STACK="nestjs"; break ;;
             5) STACK="symfony-api"; break ;;
-            6) STACK="nextjs-typescript"; break ;;
-            7) STACK="react-vite"; break ;;
-            8) STACK="vue3"; break ;;
-            9) STACK="t3-stack"; break ;;
-            *) echo -e "${RED}Invalid choice. Please select 1-9.${NC}" ;;
+            6) STACK="go"; break ;;
+            7) STACK="rust"; break ;;
+            8) STACK="ruby"; break ;;
+            9) STACK="nextjs-typescript"; break ;;
+            10) STACK="react-vite"; break ;;
+            11) STACK="vue3"; break ;;
+            12) STACK="t3-stack"; break ;;
+            13) STACK="docker"; break ;;
+            14) STACK="bash-script"; break ;;
+            *) echo -e "${RED}Invalid choice. Please select 1-14.${NC}" ;;
         esac
     done
     

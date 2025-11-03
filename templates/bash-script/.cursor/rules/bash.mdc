@@ -1,0 +1,39 @@
+# Bash Scripting Rules
+
+## General Principles
+
+- Always use `set -euo pipefail` at the start of scripts
+- Use `readonly` for constants
+- Quote all variables: `"$variable"`
+- Use `[[ ]]` instead of `[ ]` for conditionals
+- Prefer functions over inline code
+- Always validate inputs
+
+## Error Handling
+
+- Use `trap` for cleanup on exit
+- Check command existence before use: `command_exists cmd`
+- Validate file/directory existence before operations
+- Use `||` for fallback values: `VAR="${VAR:-default}"`
+
+## Functions
+
+- Keep functions small and focused
+- Use local variables: `local var="value"`
+- Return codes: 0 for success, non-zero for failure
+- Document function purpose and parameters
+
+## Best Practices
+
+- Use meaningful variable names
+- Add comments for complex logic
+- Use arrays for multiple values
+- Prefer `printf` over `echo` for formatted output
+- Use `read -r` for reading input
+
+## Testing
+
+- Write tests with BATS
+- Test error cases
+- Test edge cases
+- Mock external dependencies

@@ -100,6 +100,39 @@ Dans Cursor IDE, vous pouvez utiliser les prompts de deux façons :
 - `create_middleware` - Créer un Middleware
 - `create_service` - Créer un Service
 
+#### Bash Script
+
+- `create_function` - Créer une fonction Bash
+- `create_script` - Créer un script Bash complet
+- `add_error_handling` - Ajouter gestion d'erreurs
+- `create_logger` - Créer fonctions de logging
+
+#### Docker
+
+- `create_dockerfile` - Créer Dockerfile multi-stage
+- `create_compose` - Créer docker-compose.yml
+- `optimize_build` - Optimiser Dockerfile
+- `add_healthcheck` - Ajouter health check
+
+#### Go
+
+- `create_handler` - Créer handler HTTP
+- `create_service` - Créer service
+- `create_middleware` - Créer middleware HTTP
+- `add_test` - Ajouter tests Go
+
+#### Rust
+
+- `create_handler` - Créer handler
+- `create_module` - Créer module Rust
+- `add_error_type` - Créer type d'erreur personnalisé
+
+#### Ruby (Rails)
+
+- `create_controller` - Créer Controller Rails
+- `create_service` - Créer Service Object
+- `create_model` - Créer modèle ActiveRecord
+
 ## ⚡ Commandes Personnalisées
 
 Chaque template inclut des commandes personnalisées dans `.cursor/commands.json`. Ces commandes sont disponibles dans la palette de commandes Cursor (`Cmd/Ctrl + Shift + P`).
@@ -196,6 +229,48 @@ Chaque template inclut des commandes personnalisées dans `.cursor/commands.json
 - `test` - Exécuter les tests PHPUnit
 - `composer-install` - Installer les dépendances
 - `composer-update` - Mettre à jour les dépendances
+
+#### Bash Script
+
+- `run-script` - Exécuter le script principal
+- `test` - Exécuter les tests BATS
+- `lint` - Linter avec shellcheck
+- `check-syntax` - Vérifier la syntaxe Bash
+
+#### Docker
+
+- `build` - Builder l'image Docker
+- `run` - Exécuter le conteneur
+- `compose-up` - Démarrer avec Docker Compose
+- `compose-down` - Arrêter Docker Compose
+- `compose-logs` - Voir les logs
+- `scan` - Scanner les vulnérabilités
+
+#### Go
+
+- `run` - Exécuter l'application Go
+- `build` - Builder l'application
+- `test` - Exécuter les tests
+- `test-coverage` - Tests avec coverage
+- `lint` - Linter avec golangci-lint
+- `fmt` - Formater le code
+
+#### Rust
+
+- `run` - Exécuter avec Cargo
+- `build` - Builder en release
+- `test` - Exécuter les tests
+- `check` - Vérifier le code
+- `clippy` - Linter Clippy
+- `fmt` - Formater avec rustfmt
+
+#### Ruby (Rails)
+
+- `server` - Démarrer le serveur Rails
+- `console` - Ouvrir la console Rails
+- `test` - Exécuter les tests RSpec
+- `migrate` - Exécuter les migrations
+- `generate` - Générer composant Rails
 
 ## 🔧 Personnalisation
 
