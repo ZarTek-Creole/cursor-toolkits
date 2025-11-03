@@ -1,0 +1,149 @@
+name: Tests and Coverage
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test-python:
+    name: Python Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          pip install pytest pytest-cov pytest-asyncio httpx
+      
+      - name: Run Python validator tests
+        run: |
+          python3 -m pytest tests/test_check_token_limits.py -v --cov=lib/validators --cov-report=term --cov-report=xml --cov-report=html
+      
+      - name: Run utility tests
+        run: |
+          python3 -m pytest lib/utils/tests/ -v --cov=lib/utils --cov-report=term
+      
+      - name: Run FastAPI template tests
+        working-directory: templates/python-fastapi
+        run: |
+          pip install -e .
+          pytest --cov=src --cov-report=term --cov-report=xml --cov-report=html --cov-fail-under=90
+      
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage.xml
+          flags: python
+          fail_ci_if_error: true
+
+  test-bash:
+    name: Bash CLI Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Make scripts executable
+        run: chmod +x bin/cursor-init tests/*.sh lib/validators/*.sh
+      
+      - name: Run CLI tests
+        run: bash tests/test-cli.sh
+      
+      - name: Run validator tests
+        run: bash tests/test-validators.sh
+
+  test-node:
+    name: Node.js Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Run Jest tests
+        run: npm run test:unit -- --coverage --coverageThreshold='{"global":{"branches":90,"functions":90,"lines":90,"statements":90}}'
+      
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage/coverage-final.json
+          flags: nodejs
+
+  test-nextjs:
+    name: Next.js Template Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        working-directory: templates/nextjs-typescript
+        run: npm install
+      
+      - name: Run tests
+        working-directory: templates/nextjs-typescript
+        run: npm test -- --coverage --coverageThreshold='{"global":{"branches":90,"functions":90,"lines":90,"statements":90}}'
+
+  test-symfony:
+    name: Symfony Template Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: xdebug
+      
+      - name: Install dependencies
+        working-directory: templates/symfony-api
+        run: |
+          composer install --no-interaction --prefer-dist
+      
+      - name: Run PHPUnit tests
+        working-directory: templates/symfony-api
+        run: |
+          php bin/phpunit --coverage-text --coverage-clover=coverage.xml
+
+  validate:
+    name: Validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Make scripts executable
+        run: chmod +x bin/cursor-init tests/*.sh lib/validators/*.sh
+      
+      - name: Validate templates
+        run: make validate
+      
+      - name: Check token limits
+        run: python3 lib/validators/check-token-limits.py
+
+  coverage-report:
+    name: Coverage Report
+    runs-on: ubuntu-latest
+    needs: [test-python, test-node, test-nextjs]
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Generate coverage report
+        run: |
+          echo "Coverage reports generated for all test suites"

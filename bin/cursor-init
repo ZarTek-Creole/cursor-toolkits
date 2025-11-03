@@ -44,25 +44,43 @@ EOF
 detect_stack() {
     local dir="$1"
     
+    if [ -z "$dir" ] || [ ! -d "$dir" ]; then
+        echo "unknown"
+        return 1
+    fi
+    
     # Check for Python
-    if [ -f "$dir/requirements.txt" ] || [ -f "$dir/pyproject.toml" ]; then
+    if [ -f "$dir/requirements.txt" ] || [ -f "$dir/pyproject.toml" ] || [ -f "$dir/Pipfile" ]; then
         echo "python"
-        return
+        return 0
     fi
     
     # Check for PHP
     if [ -f "$dir/composer.json" ]; then
         echo "php"
-        return
+        return 0
     fi
     
     # Check for Node.js
     if [ -f "$dir/package.json" ]; then
         echo "nodejs"
-        return
+        return 0
+    fi
+    
+    # Check for Ruby
+    if [ -f "$dir/Gemfile" ]; then
+        echo "ruby"
+        return 0
+    fi
+    
+    # Check for Go
+    if [ -f "$dir/go.mod" ] || [ -f "$dir/Gopkg.toml" ]; then
+        echo "go"
+        return 0
     fi
     
     echo "unknown"
+    return 1
 }
 
 # Interactive mode
@@ -108,6 +126,30 @@ interactive_mode() {
     create_project "$STACK" "$PROJECT_NAME" "$OUTPUT" "$FEATURES"
 }
 
+# Validate project name
+validate_project_name() {
+    local name="$1"
+    
+    if [ -z "$name" ]; then
+        echo -e "${RED}Error: Project name cannot be empty${NC}"
+        return 1
+    fi
+    
+    # Check for invalid characters
+    if [[ ! "$name" =~ ^[a-zA-Z0-9_-]+$ ]]; then
+        echo -e "${RED}Error: Project name can only contain letters, numbers, hyphens, and underscores${NC}"
+        return 1
+    fi
+    
+    # Check length
+    if [ ${#name} -gt 50 ]; then
+        echo -e "${RED}Error: Project name is too long (max 50 characters)${NC}"
+        return 1
+    fi
+    
+    return 0
+}
+
 # Create project from template
 create_project() {
     local stack="$1"
@@ -115,11 +157,28 @@ create_project() {
     local output="${3:-./$name}"
     local features="$4"
     
+    # Validate project name
+    if ! validate_project_name "$name"; then
+        exit 1
+    fi
+    
     local template_dir="$TEMPLATES_DIR/$stack"
     
     if [ ! -d "$template_dir" ]; then
         echo -e "${RED}Error: Template '$stack' not found${NC}"
+        echo -e "${YELLOW}Available templates:${NC}"
+        ls -1 "$TEMPLATES_DIR" 2>/dev/null | grep -v "^\\." || echo "  (none)"
         exit 1
+    fi
+    
+    # Check if output directory already exists
+    if [ -d "$output" ] && [ "$(ls -A "$output" 2>/dev/null)" ]; then
+        echo -e "${YELLOW}Warning: Directory '$output' already exists and is not empty${NC}"
+        read -p "Continue anyway? (y/N): " confirm
+        if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
+            echo "Aborted."
+            exit 1
+        fi
     fi
     
     # Create output directory
@@ -127,11 +186,16 @@ create_project() {
     
     # Copy template files
     echo -e "${CYAN}Copying template files...${NC}"
-    cp -r "$template_dir"/.* "$template_dir"/* "$output/" 2>/dev/null || true
+    if ! cp -r "$template_dir"/.* "$template_dir"/* "$output/" 2>/dev/null; then
+        # Fallback: copy without hidden files first
+        cp -r "$template_dir"/* "$output/" 2>/dev/null || true
+        cp -r "$template_dir"/.* "$output/" 2>/dev/null || true
+    fi
     
     # Process files (replace placeholders)
     echo -e "${CYAN}Processing files...${NC}"
-    find "$output" -type f \( -name "*.py" -o -name "*.md" -o -name "*.json" -o -name "*.toml" \) -exec sed -i "s/__PROJECT_NAME__/$name/g" {} \;
+    find "$output" -type f \( -name "*.py" -o -name "*.md" -o -name "*.json" -o -name "*.toml" -o -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" -o -name "*.php" \) \
+        -exec sed -i "s/__PROJECT_NAME__/$name/g" {} \; 2>/dev/null || true
     
     # Handle features
     if [[ "$features" == *"docker"* ]] || [[ "$features" == "all" ]]; then
@@ -140,8 +204,14 @@ create_project() {
         fi
     fi
     
+    # Generate summary
     echo ""
     echo -e "${GREEN}✓ Project created successfully!${NC}"
+    echo ""
+    echo "Project details:"
+    echo "  Name: $name"
+    echo "  Stack: $stack"
+    echo "  Location: $output"
     echo ""
     echo "Next steps:"
     echo "  1. cd $output"

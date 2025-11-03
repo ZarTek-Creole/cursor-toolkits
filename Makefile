@@ -26,6 +26,31 @@ test: ## Run all tests
 	@bash tests/test-validators.sh || exit 1
 	@echo "$(GREEN)✓ All tests passed$(NC)"
 
+test:unit: ## Run unit tests only
+	@echo "$(CYAN)Running unit tests...$(NC)"
+	@python3 -m pytest tests/test_check_token_limits.py lib/utils/tests/ -v --cov=lib --cov-report=term || exit 1
+	@echo "$(GREEN)✓ Unit tests passed$(NC)"
+
+test:python: ## Run Python tests with coverage
+	@echo "$(CYAN)Running Python tests...$(NC)"
+	@python3 -m pytest tests/test_check_token_limits.py lib/utils/tests/ -v --cov=lib --cov-report=term --cov-report=html --cov-fail-under=90 || exit 1
+	@cd templates/python-fastapi && pytest --cov=src --cov-report=term --cov-report=html --cov-fail-under=90 || exit 1
+	@echo "$(GREEN)✓ Python tests passed$(NC)"
+
+test:node: ## Run Node.js tests
+	@echo "$(CYAN)Running Node.js tests...$(NC)"
+	@npm run test:unit || exit 1
+	@echo "$(GREEN)✓ Node.js tests passed$(NC)"
+
+test:coverage: ## Generate coverage reports for all languages
+	@echo "$(CYAN)Generating coverage reports...$(NC)"
+	@python3 -m pytest tests/test_check_token_limits.py lib/utils/tests/ -v --cov=lib --cov-report=html --cov-report=term || true
+	@cd templates/python-fastapi && pytest --cov=src --cov-report=html --cov-report=term || true
+	@npm run test:unit -- --coverage || true
+	@echo "$(GREEN)✓ Coverage reports generated$(NC)"
+	@echo "Open htmlcov/index.html for Python coverage"
+	@echo "Open coverage/index.html for Node.js coverage"
+
 validate: ## Validate all templates and rules
 	@echo "$(CYAN)Validating templates and rules...$(NC)"
 	@bash lib/validators/validate-cursorrules.sh || exit 1
